@@ -1,25 +1,19 @@
 import axios from "axios";
+import { useState, useEffect } from "react";
 
 const LoginPage = () => {
-  const options = {
-    method: "GET",
-    url: "https://weather1395.p.rapidapi.com/temperature",
-    params: { url: "Casablanca" },
-    headers: {
-      "X-RapidAPI-Key": "51b62225f3msha711ffda4551c64p193932jsn89f02785fb25",
-      "X-RapidAPI-Host": "weather1395.p.rapidapi.com",
-    },
-  };
+  
+  const [allCities, setAllCities] = useState([]);
 
-  axios
-    .request(options)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+  useEffect(()=>{
+    const init = async () =>{
+      const result = await axios.get("https://countriesnow.space/api/v0.1/countries")
+      setAllCities(result.data.data)
+    }
+    init()
+  },[])
 
+console.log(allCities);
   const url = "https://accounts.google.com/o/oauth2/v2/auth";
   const client_id =
     "388240814662-pb3ojkq4ivh8djpqhp79i93fcnfvefvi.apps.googleusercontent.com";
