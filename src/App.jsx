@@ -4,6 +4,7 @@ import RootLayout from './pages/RootLayout'
 import Callback from './pages/Callback'
 import Home from './pages/Home'
 import { Admin } from './pages/Admin'
+import { ChakraProvider } from '@chakra-ui/react'
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,10 @@ function App() {
   
 
   return (
-    <RouterProvider router={router}/>
+    <ChakraProvider>
+
+      <RouterProvider router={router}/>
+    </ChakraProvider>
   )
 }
 

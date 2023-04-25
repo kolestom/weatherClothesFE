@@ -1,0 +1,27 @@
+.mainDiv{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 8rem;
+    padding-bottom: 2rem;
+}
+.dropdown{
+    top: 7.5rem;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 15rem;
+    /* position: absolute; */
+}
+
+.citySearch{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 45%;
+}
+
+/* .input {
+    position:relative
+} */

@@ -5,6 +5,9 @@ import { client } from "../api/own";
 import { $user, setUser } from "../states/user";
 import useRXjs from "../hooks/useRXjs";
 import jwtDecode from "jwt-decode";
+import styles from './Home.module.css'
+import { WeatherCard } from "../comps/WeatherCard";
+import { Button, Input } from "@chakra-ui/react";
 
 const Home = () => {
   
@@ -13,6 +16,7 @@ const Home = () => {
   const [filteredCities, setFilteredCities] = useState([]);
   const [cityList, setCityList] = useState([]);
   const [input, setInput] = useState('');
+  const [weather, setWeather] = useState(null)
   
   useEffect(()=>{
     const init = async () =>{
@@ -34,27 +38,32 @@ const Home = () => {
   
   const dropClick = async(e) =>{
     const [city, country] = e.split(', ')
-    console.log(city, country);
     const apiResponse = await client.post(`/api/weather`, {
       city,
       country,
     })
     console.log(apiResponse.data);
+    setWeather(apiResponse.data)
   }
 
   
   return (
     <>
-      <h2>Home Page</h2>
-      <input type="text" value={input} onChange={(e) => handleComplete(e.target.value)} />
-      <div className="dropdown" style={{display: input.length > 2 ? "block": "none"}}>
-        {filteredCities.length > 0 &&
-          filteredCities.map((city, i) => 
-            <p key={i} onClick={e => dropClick(e.target.innerText)}>
-              {city}
-            </p>)}
+      {/* <h2>Home Page</h2> */}
+      <div className={styles.mainDiv}>
+        <div className={styles.citySearch}>
+          <Input className={styles.input} width={"70%"} placeholder='Search city' value={input} onChange={(e) => handleComplete(e.target.value)}/>
+          <span className="material-symbols-outlined" onClick={()=>setInput('')}>delete</span>
+          <div className={styles.dropdown} style={{display: input.length > 2 ? "block": "none"}}>
+            {filteredCities.length > 0 &&
+              filteredCities.map((city, i) => 
+              <p key={i} onClick={e => dropClick(e.target.innerText)}>
+                  {city}
+                </p>)}
+          </div>
+        </div>
+        {weather && <WeatherCard {...{weather}}/>}
       </div>
-      <button onClick={()=>navigate('admin')}>Admin</button>
     </>
   );
 }
