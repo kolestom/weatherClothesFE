@@ -1,23 +1,19 @@
 // import axios from "axios";
 import { useEffect } from "react";
-import sendCode from "../util/sendCode";
+import { useNavigate } from "react-router-dom"
+import { login } from "../states/user";
 
-const CallbackPage = () => {
-    
-
+const Callback = () => {
+    const navigate = useNavigate()
     useEffect(() => {
         
         const urlSearchParams = new URLSearchParams(window.location.search)
         const code = urlSearchParams.get("code")
-        console.log(code);
-        
-        const init = async () =>{
-
-            const data = await sendCode(code)
-            console.log(data);
-            
+        if (code){   
+            login(code)
+            navigate('/')
         }
-        init()
+
     }, []);
 
     
@@ -27,5 +23,4 @@ const CallbackPage = () => {
         </>
      );
 }
- 
-export default CallbackPage;
+export default Callback
