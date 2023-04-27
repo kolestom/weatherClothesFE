@@ -16,7 +16,6 @@
 .citySearch{
     display: flex;
     justify-content: center;
-    flex-direction: row;
     flex-wrap: wrap;
     gap: 2rem;
     width: 45%;

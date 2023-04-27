@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './WeatherCard.module.css'
 import { $user } from "../states/user";
 import useRXjs from "../hooks/useRXjs";
+import { PrefCard } from "./PrefCard";
+import { client } from "../api/own";
 import {
     Button,
     Modal,
@@ -12,18 +14,61 @@ import {
     useDisclosure
   } from '@chakra-ui/react'
 
-export const WeatherCard = ({weather}) => {
+export const WeatherCard = ({weather, favCities, setFavCities}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const user = useRXjs($user)
-    const [selectedDay, setSelectedDay] = useState();
+    const [isFavorite, setIsFavorite] = useState({fav: false, _id: ''});
+    
+    useEffect(() => {
+        favCities.map(city =>{
+            if (city.lat === weather.location.lat && city.lon === weather.location.lon) {
+                setIsFavorite({fav: true, _id: city._id})
+            } else {
+                setIsFavorite({fav: false, _id: ''})
+            }
+        })
+    }, [favCities]);
+
+    console.log(favCities);
+
+    const handleSaveCity = async(location) =>{
+        try {
+            const resp = await client.post(`/api/favCity`,{
+                city: location.name,
+                country: location.country,
+                lat: location.lat,
+                lon: location.lon
+            },
+            { headers: {Authorization: `Bearer: ${localStorage.getItem('token')}`}})
+            setFavCities(resp.data)
+        } catch (error) {
+            alert(error.response.data)
+        }
+    }
+    const handleDelCity = async(id) =>{
+        try {
+            const resp = await client.delete(`/api/favCity/${id}`, { headers: {Authorization: `Bearer: ${localStorage.getItem('token')}`}})
+            setFavCities(resp.data)
+        } catch (error) {
+            alert(error.response.data)
+        }
+    }
+
+    console.log(isFavorite);
+
     return ( 
         <>
-            <div className={styles.card} onClick={onOpen}>
+            <div className={styles.card}>
                 <div className="main">
+                    {user &&  <div>{isFavorite.fav ?
+                        <Button colorScheme="red" onClick={()=>handleDelCity(isFavorite._id)}>Delete city</Button>
+                        :
+                        <Button colorScheme="green" onClick={()=>handleSaveCity(weather.location)}>Save city</Button>}
+                        </div>}
                     <p>{weather.location.name}</p>
                     <p>{weather.location.country}</p>
                     <p>{weather.current.last_updated}</p>
-                    <p>{weather.current.temp_c} C</p>
+                    <p onClick={onOpen}>{weather.current.temp_c} C</p>
                     <p>Wind direction: {weather.current.wind_dir}</p>
                     <p>Wind: {weather.current.wind_kph} Kph</p>
                     <img src={weather.current.condition.icon} alt="icon.png" />
@@ -33,7 +78,7 @@ export const WeatherCard = ({weather}) => {
                         <ModalOverlay />
                         <ModalContent>
                             <ModalBody>
-                            {/* <PrefDetails {...{pref, setPrefs, onClose}}/> */}
+                                <PrefCard temp={weather.current.temp_c}/>
                             </ModalBody>
                             <ModalFooter>
                             <Button colorScheme='blue' mr={3} onClick={onClose}>

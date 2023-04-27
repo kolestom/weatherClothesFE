@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { client } from "../api/own";
 import { $user, setUser } from "../states/user";
 import useRXjs from "../hooks/useRXjs";
@@ -12,13 +11,12 @@ import { Button, Input } from "@chakra-ui/react";
 const Home = () => {
   
   const user = useRXjs($user)
-  const navigate = useNavigate()
   const [filteredCities, setFilteredCities] = useState([]);
   const [cityList, setCityList] = useState([]);
   const [input, setInput] = useState('');
   const [weather, setWeather] = useState(null)
   const [favCities, setFavCities] = useState([]);
-  
+
   useEffect(()=>{
     const init = async () =>{
       const result = await axios.get("https://countriesnow.space/api/v0.1/countries")
@@ -59,7 +57,6 @@ const Home = () => {
       city,
       country,
     })
-    console.log(apiResponse.data);
     setWeather(apiResponse.data)
   }
 
@@ -83,7 +80,7 @@ const Home = () => {
                 </p>)}
           </div>
         </div>
-        {weather && <WeatherCard {...{weather}}/>}
+        {weather && <WeatherCard {...{weather, favCities, setFavCities}}/>}
       </div>
     </>
   );
