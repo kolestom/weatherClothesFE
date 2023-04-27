@@ -1,5 +1,5 @@
-import styles from './PrefCard.module.css'
-import { PrefDetails } from './PrefDetails'
+import styles from './PrefCardAdmin.module.css'
+import { PrefUpdate } from './PrefUpdate'
 import {
     Button,
     Modal,
@@ -9,7 +9,7 @@ import {
     ModalBody,
     useDisclosure
   } from '@chakra-ui/react'
-export const PrefCard = ({pref, setPrefs}) => {
+export const PrefCardAdmin = ({pref, setPrefs}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return ( 
@@ -23,7 +23,7 @@ export const PrefCard = ({pref, setPrefs}) => {
           <ModalOverlay />
           <ModalContent>
             <ModalBody>
-              <PrefDetails {...{pref, setPrefs, onClose}}/>
+              <PrefUpdate {...{pref, setPrefs, onClose}}/>
             </ModalBody>
             <ModalFooter>
               <Button colorScheme='blue' mr={3} onClick={onClose}>

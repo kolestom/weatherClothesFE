@@ -6,7 +6,7 @@ import jwtDecode from "jwt-decode";
 import { client } from "../api/own";
 import { Button } from "@chakra-ui/react";
 import { PrefCreate } from "../comps/PrefCreate";
-import { PrefCard } from "../comps/PrefCard";
+import { PrefCardAdmin } from "../comps/PrefCardAdmin";
 import styles from './Admin.module.css'
 
 
@@ -41,7 +41,7 @@ export const Admin = () => {
     return ( 
         <div className={styles.adminMain}>
             <div className={styles.prefContainer}>
-                {prefs && prefs.map(pref => <PrefCard key={pref._id} {...{pref, setPrefs}}/>)}
+                {prefs && prefs.map(pref => <PrefCardAdmin key={pref._id} {...{pref, setPrefs}}/>)}
             </div>
             <PrefCreate {...{setPrefs}}/>
         </div>

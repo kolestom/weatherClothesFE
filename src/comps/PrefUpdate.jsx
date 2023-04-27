@@ -1,4 +1,4 @@
-import styles from './PrefDetails.modul.css'
+import styles from './PrefUpdate.modul.css'
 import { client } from '../api/own';
 import { useEffect, useState } from "react";
 import { Button, Input, RadioGroup, Radio, Stack} from '@chakra-ui/react';
@@ -6,7 +6,7 @@ import { $user } from '../states/user';
 import useRXjs from '../hooks/useRXjs'
 
 
-export const PrefDetails = ({pref, setPrefs, onClose}) => {
+export const PrefUpdate = ({pref, setPrefs, onClose}) => {
     const user = useRXjs($user)
     const [prefName, setPrefName] = useState(pref.prefName);
     const [minTemp, setMinTemp] = useState(pref.minTemp);
