@@ -7,6 +7,7 @@ import jwtDecode from "jwt-decode";
 import styles from './Home.module.css'
 import { WeatherCard } from "../comps/WeatherCard";
 import { Button, Input } from "@chakra-ui/react";
+import { Favorite } from "../comps/Favorite";
 
 const Home = () => {
   
@@ -44,14 +45,14 @@ const Home = () => {
     getFavs()
   },[user])
   
-  const handleComplete =(e) => {
+  const handleInput =(e) => {
     setInput(e.toLowerCase())
     if (e.length > 2) {
       setFilteredCities(cityList.filter(city => city.toLowerCase().startsWith(e)))
     }
   }
   
-  const dropClick = async(e) =>{
+  const getWeather = async(e) =>{
     const [city, country] = e.split(', ')
     const apiResponse = await client.post(`/api/weather`, {
       city,
@@ -60,22 +61,17 @@ const Home = () => {
     setWeather(apiResponse.data)
   }
 
-  
   return (
     <>
-      {/* <h2>Home Page</h2> */}
       <div className={styles.mainDiv}>
         <div className={styles.citySearch}>
-          {favCities.length>0 && favCities.map((city, i) => 
-          <p key={i}>
-            {city.city}, {city.country}
-          </p>)}
-          <Input className={styles.input} width={"70%"} placeholder='Search city' value={input} onChange={(e) => handleComplete(e.target.value)}/>
+          {favCities.length>0 && favCities.map((city, i) =>  <Favorite key={i} {...{city, getWeather}}/>)}
+          <Input className={styles.input} width={"70%"} placeholder='Search city' value={input} onChange={(e) => handleInput(e.target.value)}/>
           <span className="material-symbols-outlined" onClick={()=>setInput('')}>delete</span>
           <div className={styles.dropdown} style={{display: input.length > 2 ? "block": "none"}}>
             {filteredCities.length &&
               filteredCities.map((city, i) => 
-              <p key={i} onClick={e => dropClick(e.target.innerText)}>
+              <p key={i} onClick={e => getWeather(e.target.innerText)}>
                   {city}
                 </p>)}
           </div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button, Input, RadioGroup, Radio, Stack} from '@chakra-ui/react';
 import { $user } from '../states/user';
 import useRXjs from '../hooks/useRXjs'
+import { handleGloves, handlePants } from '../util/handleClothes';
 
 
 export const PrefUpdate = ({pref, setPrefs, onClose}) => {
@@ -31,33 +32,6 @@ export const PrefUpdate = ({pref, setPrefs, onClose}) => {
         else setIsDisabled(true)
     },[prefName, minTemp, maxTemp, thermoTop, warmSocks])
 
-    const handleGloves = (e) =>{
-        if (e==='l') {
-            setShortGloves(false)
-            setLongGloves(true)
-            setThermoGloves(false)
-        }
-        if (e==='t') {
-            setShortGloves(false)
-            setLongGloves(false)
-            setThermoGloves(true)
-        }
-        if (e==='s') {
-            setShortGloves(true)
-            setLongGloves(false)
-            setThermoGloves(false)
-        }
-    }
-    const handlePants = (e) =>{
-        if (e==='l') {
-            setShortPants(false)
-            setLongPants(true)
-        }
-        if (e==='s') {
-            setShortPants(true)
-            setLongPants(false)
-        }
-    }
 
     const updatePref = async() => {
         try {
@@ -137,14 +111,14 @@ export const PrefUpdate = ({pref, setPrefs, onClose}) => {
                 <Input width={"20%"} placeholder={thermoTop} type="number" id='thermoTop' onChange={(e) => setThermoTop(parseInt(e.target.value))}/>
                 <label htmlFor="thermoTop">Thermo top(s)</label>
             </div>
-            <RadioGroup defaultValue={shortGloves ? 's' : longGloves ? 'l': 't'} onChange={e=>handleGloves(e)}>
+            <RadioGroup defaultValue={shortGloves ? 's' : longGloves ? 'l': 't'} onChange={e=>handleGloves(e, setShortGloves, setLongGloves, setThermoGloves)}>
                 <Stack direction='row'>
                     <Radio value='s'>Short</Radio>
                     <Radio value='l'>Long</Radio>
                     <Radio value='t'>Thermo</Radio>
                 </Stack>
             </RadioGroup>
-            <RadioGroup defaultValue={shortPants ? 's': 'l'} onChange={e=>handlePants(e)}>
+            <RadioGroup defaultValue={shortPants ? 's': 'l'} onChange={e=>handlePants(e, setShortPants, setLongPants)}>
                 <Stack direction='row'>
                     <Radio value='s'>Short</Radio>
                     <Radio value='l'>Long</Radio>

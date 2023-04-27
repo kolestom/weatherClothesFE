@@ -4,6 +4,7 @@ import { Button, Input, RadioGroup, Radio, Stack} from '@chakra-ui/react';
 import { client } from '../api/own';
 import { $user } from '../states/user';
 import useRXjs from '../hooks/useRXjs';
+import { handleGloves, handlePants } from '../util/handleClothes';
 
 
 export const PrefCreate = ({setPrefs}) => {
@@ -30,33 +31,6 @@ export const PrefCreate = ({setPrefs}) => {
         else setIsDisabled(true)
     },[prefName, minTemp, maxTemp, thermoTop, warmSocks])
 
-    const handleGloves = (e) =>{
-        if (e==='l') {
-            setShortGloves(false)
-            setLongGloves(true)
-            setThermoGloves(false)
-        }
-        if (e==='t') {
-            setShortGloves(false)
-            setLongGloves(false)
-            setThermoGloves(true)
-        }
-        if (e==='s') {
-            setShortGloves(true)
-            setLongGloves(false)
-            setThermoGloves(false)
-        }
-    }
-    const handlePants = (e) =>{
-        if (e==='l') {
-            setShortPants(false)
-            setLongPants(true)
-        }
-        if (e==='s') {
-            setShortPants(true)
-            setLongPants(false)
-        }
-    }
     const createPref = async() => {
         try {
             const response = await client.post('/api/pref', {
@@ -118,14 +92,14 @@ export const PrefCreate = ({setPrefs}) => {
                 <label htmlFor="thermoTop">Thermo top(s)</label>
                 <Input width={"20%"} placeholder={0} type="number" id='thermoTop' onChange={(e) => setThermoTop(parseInt(e.target.value))}/>
             </div>
-            <RadioGroup defaultValue='s' onChange={e=>handleGloves(e)}>
+            <RadioGroup defaultValue='s' onChange={e=>handleGloves(e, setShortGloves, setLongGloves, setThermoGloves)}>
                 <Stack direction='row'>
                     <Radio value='s'>Short</Radio>
                     <Radio value='l'>Long</Radio>
                     <Radio value='t'>Thermo</Radio>
                 </Stack>
             </RadioGroup>
-            <RadioGroup defaultValue='s' onChange={e=>handlePants(e)}>
+            <RadioGroup defaultValue='s' onChange={e=>handlePants(e, setShortPants, setLongPants)}>
                 <Stack direction='row'>
                     <Radio value='s'>Short</Radio>
                     <Radio value='l'>Long</Radio>

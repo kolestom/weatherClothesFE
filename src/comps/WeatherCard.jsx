@@ -20,16 +20,11 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
     const [isFavorite, setIsFavorite] = useState({fav: false, _id: ''});
     
     useEffect(() => {
-        favCities.map(city =>{
-            if (city.lat === weather.location.lat && city.lon === weather.location.lon) {
-                setIsFavorite({fav: true, _id: city._id})
-            } else {
-                setIsFavorite({fav: false, _id: ''})
-            }
+        setIsFavorite({fav: false, _id: ''})
+        favCities.map(city => {
+            if (city.lat === weather.location.lat && city.lon === weather.location.lon) setIsFavorite({fav: true, _id: city._id})
         })
-    }, [favCities]);
-
-    console.log(favCities);
+    }, [weather, favCities]);
 
     const handleSaveCity = async(location) =>{
         try {
@@ -53,8 +48,6 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
             alert(error.response.data)
         }
     }
-
-    console.log(isFavorite);
 
     return ( 
         <>

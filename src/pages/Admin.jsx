@@ -37,7 +37,6 @@ export const Admin = () => {
                 init()
         } else navigate('/')
     },[])
-    // console.log(prefs);
     return ( 
         <div className={styles.adminMain}>
             <div className={styles.prefContainer}>
