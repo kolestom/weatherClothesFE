@@ -2,6 +2,7 @@ import { BehaviorSubject } from "rxjs";
 import jwtDecode from "jwt-decode";
 import { reqLogin } from "../api/own";
 
+
 export const $user = new BehaviorSubject(null)
 
 export const login = async (code) => {

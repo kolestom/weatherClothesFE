@@ -17,6 +17,7 @@ const Home = () => {
   const [cityList, setCityList] = useState([]);
   const [input, setInput] = useState('');
   const [weather, setWeather] = useState(null)
+  const [favCities, setFavCities] = useState([]);
   
   useEffect(()=>{
     const init = async () =>{
@@ -24,10 +25,26 @@ const Home = () => {
       const formatted = []
       await result.data.data.map(country => country.cities.map(city => formatted.push(`${city}, ${country.country}`)))
       setCityList(formatted)
-      if (localStorage.getItem('token')) setUser(jwtDecode(localStorage.getItem('token'))) // verify kell a lejarathoz
+      if (localStorage.getItem('token')) {
+        setUser(jwtDecode(localStorage.getItem('token'))) // verify kell a lejarathoz 
+      }
     }
     init()
   },[])
+
+  useEffect(()=>{
+    const getFavs = async () =>{
+      if (user) {
+        const response = await client.get('/api/favCity', {
+          headers: {
+            Authorization: `Bearer: ${localStorage.getItem('token')}`
+          }
+        })
+        setFavCities(response.data)
+      }
+    }
+    getFavs()
+  },[user])
   
   const handleComplete =(e) => {
     setInput(e.toLowerCase())
@@ -52,10 +69,14 @@ const Home = () => {
       {/* <h2>Home Page</h2> */}
       <div className={styles.mainDiv}>
         <div className={styles.citySearch}>
+          {favCities.length>0 && favCities.map((city, i) => 
+          <p key={i}>
+            {city.city}, {city.country}
+          </p>)}
           <Input className={styles.input} width={"70%"} placeholder='Search city' value={input} onChange={(e) => handleComplete(e.target.value)}/>
           <span className="material-symbols-outlined" onClick={()=>setInput('')}>delete</span>
           <div className={styles.dropdown} style={{display: input.length > 2 ? "block": "none"}}>
-            {filteredCities.length > 0 &&
+            {filteredCities.length &&
               filteredCities.map((city, i) => 
               <p key={i} onClick={e => dropClick(e.target.innerText)}>
                   {city}

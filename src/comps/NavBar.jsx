@@ -12,14 +12,19 @@ export const NavBar = () => {
     const handleLogin = () => {
         window.location.href = fullUrl;
       }
+
+    const handleLogout = () => {
+        logout()
+        navigate('/')
+    }
     return ( 
         <nav>
-            <h1>This is the navbar</h1>
             {user && <h1>{user.name}</h1>}
             <Button onClick={()=>navigate('admin')} colorScheme='blue'>Admin</Button>
+            <Button onClick={()=>navigate('/')}colorScheme='red'>Home</Button>
             <div>
                 {user ?
-                <Button onClick={logout} colorScheme="blue" variant="solid">Logout</Button> :
+                <Button onClick={handleLogout} colorScheme="blue" variant="solid">Logout</Button> :
                 <Button leftIcon={<FcGoogle/>} onClick={handleLogin} colorScheme="gray" variant="solid" >Login</Button>}
             </div>
             

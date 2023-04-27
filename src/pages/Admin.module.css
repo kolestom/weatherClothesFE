@@ -1,0 +1,14 @@
+.adminMain {
+    width: 100%;
+    gap: 4rem
+}
+.prefContainer, .adminMain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.prefContainer {
+    gap: 2rem;
+    max-width: 45%;
+}
