@@ -5,7 +5,7 @@ import { client } from '../api/own';
 import { $user } from '../states/user';
 import useRXjs from '../hooks/useRXjs';
 import { handleGloves, handlePants } from '../util/handleClothes';
-
+import {prefMgmt} from '../util/prefMgmt'
 
 export const PrefCreate = ({setPrefs}) => {
     const user = useRXjs($user)
@@ -30,37 +30,27 @@ export const PrefCreate = ({setPrefs}) => {
         if(prefName && minTemp<maxTemp && thermoTop >= 0 && warmSocks >= 0) setIsDisabled(false)
         else setIsDisabled(true)
     },[prefName, minTemp, maxTemp, thermoTop, warmSocks])
-
+    
     const createPref = async() => {
         try {
-            const response = await client.post('/api/pref', {
-                prefName,
-                userSub: user.sub,
-                minTemp,
-                maxTemp,
-                clothes: {
-                    cap,
-                    scarf,
-                    jacket,
-                    thermoTop,
-                    gloves: {
-                        short: shortGloves,
-                        long: longGloves,
-                        thermo: thermoGloves
-                    },
-                    pants: {
-                        shorts: shortPants,
-                        longs: longPants
-                    },
-                    thermoLeggins,
-                    warmSocks
-                },
-                notes,
-            },
-            {headers: {
-                Authorization: `Bearer: ${localStorage.getItem('token')}`
-            }
-            })
+            const response = await prefMgmt(
+              prefName,
+              user.sub,
+              minTemp,
+              maxTemp,
+              cap,
+              scarf,
+              jacket,
+              thermoTop,
+              shortGloves,
+              longGloves,
+              thermoGloves,
+              shortPants,
+              longPants,
+              thermoLeggins,
+              warmSocks,
+              notes
+            )
             console.log(response.data);
             setPrefs(response.data)
             

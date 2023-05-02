@@ -5,6 +5,7 @@ import { Button, Input, RadioGroup, Radio, Stack} from '@chakra-ui/react';
 import { $user } from '../states/user';
 import useRXjs from '../hooks/useRXjs'
 import { handleGloves, handlePants } from '../util/handleClothes';
+import { prefMgmt } from '../util/prefMgmt';
 
 
 export const PrefUpdate = ({pref, setPrefs, onClose}) => {
@@ -26,7 +27,6 @@ export const PrefUpdate = ({pref, setPrefs, onClose}) => {
     const [notes, setNotes] = useState(pref.notes);
     const [isDisabled, setIsDisabled] = useState(true);
 
-
     useEffect(()=>{
         if(prefName && minTemp<maxTemp && thermoTop >= 0 && warmSocks >= 0) setIsDisabled(false)
         else setIsDisabled(true)
@@ -35,39 +35,29 @@ export const PrefUpdate = ({pref, setPrefs, onClose}) => {
 
     const updatePref = async() => {
         try {
-            const response = await client.put(`/api/pref/${pref._id}`, {
+            const response = await prefMgmt(
                 prefName,
-                userSub: user.sub,
+                user.sub,
                 minTemp,
                 maxTemp,
-                clothes: {
-                    cap,
-                    scarf,
-                    jacket,
-                    thermoTop,
-                    gloves: {
-                        short: shortGloves,
-                        long: longGloves,
-                        thermo: thermoGloves
-                    },
-                    pants: {
-                        shorts: shortPants,
-                        longs: longPants
-                    },
-                    thermoLeggins,
-                    warmSocks
-                },
+                cap,
+                scarf,
+                jacket,
+                thermoTop,
+                shortGloves,
+                longGloves,
+                thermoGloves,
+                shortPants,
+                longPants,
+                thermoLeggins,
+                warmSocks,
                 notes,
-            },
-            {headers: {
-                Authorization: `Bearer: ${localStorage.getItem('token')}`
-            }
-            })
+                pref._id
+              )
             console.log(response.data);
             setPrefs(response.data)
             alert("Preference updated successfully") // ne alert, hanem modal
-            onClose()
-            
+            onClose()  
         } catch (error) {
             alert(error.response.data)
         }

@@ -7,16 +7,17 @@ To be able to run it on your local machine, follow these steps.
 
 ### Steps for running
 
-1. Clone the repository:
+1. Clone the repository and change to the new directory:
     ```
-    git clone https://github.com/kolestom/weatherClothesFE.git
+    $ git clone https://github.com/kolestom/weatherClothesFE.git
+    $ cd weatherClothesFE
     ```
 2. Install the dependencies:
     ```
-    npm install
+    $ npm install
     ```
 3.  Start the frontend development server:
     ```
-    npm run dev
+    $ npm run dev
     ```
 4.  Access the frontend by navigating to http://localhost:5173/ in your browser
