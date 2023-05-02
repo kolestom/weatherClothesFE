@@ -1,4 +1,4 @@
-import styles from './PrefUpdate.modul.css'
+import styles from './PrefUpdate.module.css'
 import { client } from '../api/own';
 import { useEffect, useState } from "react";
 import { Button, Input, RadioGroup, Radio, Stack} from '@chakra-ui/react';
@@ -65,7 +65,7 @@ export const PrefUpdate = ({pref, setPrefs, onClose}) => {
             })
             console.log(response.data);
             setPrefs(response.data)
-            alert("Preference updated successfully")
+            alert("Preference updated successfully") // ne alert, hanem modal
             onClose()
             
         } catch (error) {
@@ -77,9 +77,7 @@ export const PrefUpdate = ({pref, setPrefs, onClose}) => {
         const conf = confirm("Are you sure you want to delete this preference?")
         if (conf) {
             const resp = await client.delete(`/api/pref/${pref._id}`, {
-                headers: {
-                    Authorization: `Bearer: ${localStorage.getItem('token')}`
-                }
+                headers: { Authorization: `Bearer: ${localStorage.getItem('token')}`}
             })
             setPrefs(resp.data)
             onClose()

@@ -10,6 +10,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout/>,
+    // errorElement:,
     children: [
       {
         index: true,
@@ -27,12 +28,9 @@ const router = createBrowserRouter([
   }
 ])
 
-function App() {
-  
-
+function App() { 
   return (
     <ChakraProvider>
-
       <RouterProvider router={router}/>
     </ChakraProvider>
   )

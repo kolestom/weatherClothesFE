@@ -25,7 +25,7 @@ const Home = () => {
       await result.data.data.map(country => country.cities.map(city => formatted.push(`${city}, ${country.country}`)))
       setCityList(formatted)
       if (localStorage.getItem('token')) {
-        setUser(jwtDecode(localStorage.getItem('token'))) // verify kell a lejarathoz 
+        setUser(jwtDecode(localStorage.getItem('token')))
       }
     }
     init()
@@ -43,6 +43,7 @@ const Home = () => {
       }
     }
     getFavs()
+    if(!user) setFavCities([])
   },[user])
   
   const handleInput =(e) => {
