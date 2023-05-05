@@ -1,7 +1,9 @@
 .adminMain {
     width: 100%;
     gap: 4rem;
-    padding-top: 8rem;
+    /* padding-top: 8rem; */
+    display: flex;
+    flex-wrap: wrap;
 }
 .prefContainer, .adminMain {
     display: flex;

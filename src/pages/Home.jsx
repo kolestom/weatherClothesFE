@@ -83,7 +83,7 @@ const Home = () => {
           <div className={styles.dropdown} style={{display: input.length > 2 ? "block": "none"}}>
             {filteredCities.length &&
               filteredCities.map((city, i) => 
-              <option key={i} value={`${city.city}, ${city.country}`} onClick={getWeather}>
+                <option key={i} value={`${city.city}, ${city.country}`} onClick={getWeather}>
                   {city.city}, {city.country}
                 </option>)}
           </div>

@@ -4,10 +4,10 @@ import { $user, setUser, logout } from "../states/user";
 import useRXjs from "../hooks/useRXjs";
 import jwtDecode from "jwt-decode";
 import { client } from "../api/own";
-import { Button, Select } from "@chakra-ui/react";
+import { Select, useDisclosure } from "@chakra-ui/react";
 import { PrefCreate } from "../comps/PrefCreate";
-import { PrefCardAdmin } from "../comps/PrefCardAdmin";
 import styles from './Admin.module.css'
+import { PrefCardAdmin } from "../comps/PrefCardAdmin";
 
 
 
@@ -15,6 +15,8 @@ export const Admin = () => {
     const user = useRXjs($user)
     const navigate = useNavigate()
     const [prefs, setPrefs] = useState();
+    const [selectedPref, setSelectedPref] = useState();
+    const { isOpen, onOpen, onClose } = useDisclosure()
     
     
     useEffect(()=>{
@@ -37,14 +39,25 @@ export const Admin = () => {
                 init()
         } else navigate('/')
     },[])
+
+    const handlePrefUpdate = (e) =>{
+        if (e.target.value){
+            setSelectedPref((prefs.filter(pref => pref._id === e.target.value))[0])
+            onOpen()
+        }
+    }
+
     return (
       <div className={styles.adminMain}>
         <div className={styles.prefContainer}>
           {prefs ? (
-            prefs.map(pref => <PrefCardAdmin key={pref._id} {...{ pref, setPrefs }} />)
+            <Select placeholder="Select a preference" onChange={handlePrefUpdate}>
+                {prefs.map(pref => <option value={pref._id} key={pref._id}>{pref.prefName}, min: {pref.minTemp}C, max: {pref.maxTemp}C</option>)}
+            </Select>
           ) : (
             <div className={styles.loader}></div>
           )}
+          {selectedPref && <PrefCardAdmin {...{selectedPref, setPrefs, isOpen, onClose}}/>}
         </div>
         <PrefCreate {...{ setPrefs }} />
       </div>

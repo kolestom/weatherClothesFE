@@ -8,23 +8,23 @@ import { handleGloves, handlePants } from '../util/handleClothes';
 import { prefMgmt } from '../util/prefMgmt';
 
 
-export const PrefUpdate = ({pref, setPrefs, onClose}) => {
+export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
     const user = useRXjs($user)
-    const [prefName, setPrefName] = useState(pref.prefName);
-    const [minTemp, setMinTemp] = useState(pref.minTemp);
-    const [maxTemp, setMaxTemp] = useState(pref.maxTemp);
-    const [cap, setCap] = useState(pref.clothes.cap);
-    const [scarf, setScarf] = useState(pref.clothes.scarf);
-    const [jacket, setJacket] = useState(pref.clothes.jacket);
-    const [thermoTop, setThermoTop] = useState(pref.clothes.thermoTop);
-    const [shortGloves, setShortGloves] = useState(pref.clothes.gloves.short);
-    const [longGloves, setLongGloves] = useState(pref.clothes.gloves.long);
-    const [thermoGloves, setThermoGloves] = useState(pref.clothes.gloves.thermo);
-    const [shortPants, setShortPants] = useState(pref.clothes.pants.shorts);
-    const [longPants, setLongPants] = useState(pref.clothes.pants.longs);
-    const [thermoLeggins, setThermoLeggins] = useState(pref.clothes.thermoLeggins);
-    const [warmSocks, setWarmSocks] = useState(pref.clothes.warmSocks);
-    const [notes, setNotes] = useState(pref.notes);
+    const [prefName, setPrefName] = useState(selectedPref.prefName);
+    const [minTemp, setMinTemp] = useState(selectedPref.minTemp);
+    const [maxTemp, setMaxTemp] = useState(selectedPref.maxTemp);
+    const [cap, setCap] = useState(selectedPref.clothes.cap);
+    const [scarf, setScarf] = useState(selectedPref.clothes.scarf);
+    const [jacket, setJacket] = useState(selectedPref.clothes.jacket);
+    const [thermoTop, setThermoTop] = useState(selectedPref.clothes.thermoTop);
+    const [shortGloves, setShortGloves] = useState(selectedPref.clothes.gloves.short);
+    const [longGloves, setLongGloves] = useState(selectedPref.clothes.gloves.long);
+    const [thermoGloves, setThermoGloves] = useState(selectedPref.clothes.gloves.thermo);
+    const [shortPants, setShortPants] = useState(selectedPref.clothes.pants.shorts);
+    const [longPants, setLongPants] = useState(selectedPref.clothes.pants.longs);
+    const [thermoLeggins, setThermoLeggins] = useState(selectedPref.clothes.thermoLeggins);
+    const [warmSocks, setWarmSocks] = useState(selectedPref.clothes.warmSocks);
+    const [notes, setNotes] = useState(selectedPref.notes);
     const [isDisabled, setIsDisabled] = useState(true);
 
     useEffect(()=>{
@@ -52,7 +52,7 @@ export const PrefUpdate = ({pref, setPrefs, onClose}) => {
                 thermoLeggins,
                 warmSocks,
                 notes,
-                pref._id
+                selectedPref._id
               )
             console.log(response.data);
             setPrefs(response.data)
@@ -66,7 +66,7 @@ export const PrefUpdate = ({pref, setPrefs, onClose}) => {
     const handleDelete = async () =>{
         const conf = confirm("Are you sure you want to delete this preference?")
         if (conf) {
-            const resp = await client.delete(`/api/pref/${pref._id}`, {
+            const resp = await client.delete(`/api/pref/${selectedPref._id}`, {
                 headers: { Authorization: `Bearer: ${localStorage.getItem('token')}`}
             })
             setPrefs(resp.data)

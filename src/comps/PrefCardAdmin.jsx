@@ -6,24 +6,19 @@ import {
     ModalOverlay,
     ModalContent,
     ModalFooter,
-    ModalBody,
-    useDisclosure
+    ModalBody
   } from '@chakra-ui/react'
-export const PrefCardAdmin = ({pref, setPrefs}) => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+
+export const PrefCardAdmin = ({selectedPref, setPrefs, isOpen, onClose}) => {
+    
 
     return ( 
       <>
-        <div className={styles.prefCard} onClick={onOpen}>
-            <p>{pref.prefName}</p>
-            <p>min: {pref.minTemp} C</p>
-            <p>max: {pref.maxTemp} C</p>
-        </div>
         <Modal isOpen={isOpen} size={'xl'} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
             <ModalBody>
-              <PrefUpdate {...{pref, setPrefs, onClose}}/>
+              <PrefUpdate {...{selectedPref, setPrefs, onClose}}/>
             </ModalBody>
             <ModalFooter>
               <Button colorScheme='blue' mr={3} onClick={onClose}>
