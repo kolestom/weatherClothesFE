@@ -4,7 +4,7 @@ import { $user, setUser, logout } from "../states/user";
 import useRXjs from "../hooks/useRXjs";
 import jwtDecode from "jwt-decode";
 import { client } from "../api/own";
-import { Button } from "@chakra-ui/react";
+import { Button, Select } from "@chakra-ui/react";
 import { PrefCreate } from "../comps/PrefCreate";
 import { PrefCardAdmin } from "../comps/PrefCardAdmin";
 import styles from './Admin.module.css'
@@ -37,12 +37,16 @@ export const Admin = () => {
                 init()
         } else navigate('/')
     },[])
-    return ( 
-        <div className={styles.adminMain}>
-            <div className={styles.prefContainer}>
-                {prefs && prefs.map(pref => <PrefCardAdmin key={pref._id} {...{pref, setPrefs}}/>)}
-            </div>
-            <PrefCreate {...{setPrefs}}/>
+    return (
+      <div className={styles.adminMain}>
+        <div className={styles.prefContainer}>
+          {prefs ? (
+            prefs.map(pref => <PrefCardAdmin key={pref._id} {...{ pref, setPrefs }} />)
+          ) : (
+            <div className={styles.loader}></div>
+          )}
         </div>
-     );
+        <PrefCreate {...{ setPrefs }} />
+      </div>
+    );
 }

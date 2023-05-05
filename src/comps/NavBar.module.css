@@ -1,0 +1,11 @@
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.logo {
+    width: 300px;
+    height: 40px;
+}

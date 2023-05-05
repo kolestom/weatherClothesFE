@@ -5,6 +5,17 @@ import { $user, logout } from '../states/user';
 import useRXjs from '../hooks/useRXjs';
 import { useNavigate } from 'react-router-dom';
 import { client } from '../api/own';
+import styles from './NavBar.module.css'
+import {
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider
+  } from '@chakra-ui/react'
 
 export const NavBar = () => {
     const navigate = useNavigate()
@@ -35,16 +46,31 @@ export const NavBar = () => {
     }
     return ( 
         <nav>
-            {user && <h1>{user.name}</h1>}
-            {user && <Button onClick={()=>navigate('admin')} colorScheme='purple'>Admin</Button>}
-            {user && <Button onClick={()=>navigate('/')}colorScheme='yellow'>Home</Button>}
-            {user && <Button onClick={handleDelete}colorScheme='red'>Delete profile</Button>}
-            <div>
-                {user ?
-                <Button onClick={handleLogout} colorScheme="blue" variant="solid">Logout</Button> :
-                <Button leftIcon={<FcGoogle/>} onClick={handleLogin} colorScheme="gray" variant="solid" >Login</Button>}
-            </div>
-            
+            <div className='logo'>Image</div>
+            {/* <div>Icons made by <a href="https://www.flaticon.com/authors/ultimatearm" title="ultimatearm">ultimatearm</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/monkik" title="monkik">monkik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/victoruler" title="Victoruler">Victoruler</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/slidicon" title="Slidicon">Slidicon</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}
+            {user && <h1>Hi, {user.name}!</h1>}
+            {user ? <Menu>
+                <MenuButton
+                    px={4}
+                    py={2}
+                    transition='all 0.2s'
+                    borderRadius='md'
+                    borderWidth='1px'
+                    _hover={{ bg: 'gray.400' }}
+                    _expanded={{ bg: 'blue.400' }}
+                    _focus={{ boxShadow: 'outline' }}
+                >
+                    Menu
+                </MenuButton>
+                <MenuList>
+                    <MenuItem onClick={()=>navigate('admin')}>Manage preferences</MenuItem>
+                    <MenuItem onClick={()=>navigate('/')}>Home page</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    <MenuDivider />
+                    <MenuItem onClick={handleDelete} >Delete profile</MenuItem>
+                </MenuList>
+            </Menu>:
+            <Button leftIcon={<FcGoogle/>} onClick={handleLogin} colorScheme="gray" variant="solid" >Login</Button>}
         </nav>
      );
 }
