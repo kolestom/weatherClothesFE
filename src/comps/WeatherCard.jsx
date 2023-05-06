@@ -52,11 +52,11 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
     return ( 
         <>
             <div className={styles.card}>
-                <div className="main">
                     {user &&  <div>{isFavorite.fav ?
-                        <Button colorScheme="red" onClick={()=>handleDelCity(isFavorite._id)}>Delete city</Button>
+                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleDelCity(isFavorite._id)}>star</span>
                         :
-                        <Button colorScheme="green" onClick={()=>handleSaveCity(weather.location)}>Save city</Button>}
+                        <span className="material-icons-outlined" style={{color: 'green'}} onClick={()=>handleSaveCity(weather.location)}>star_border</span>
+                        }
                         </div>}
                     <p>{weather.location.name}</p>
                     <p>{weather.location.country}</p>
@@ -65,7 +65,6 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
                     <p>Wind direction: {weather.current.wind_dir}</p>
                     <p>Wind: {weather.current.wind_kph} Kph</p>
                     <img src={weather.current.condition.icon} alt="icon.png" />
-                </div>
             </div>
             {user && <Modal isOpen={isOpen} size={'xl'} onClose={onClose}>
                         <ModalOverlay />

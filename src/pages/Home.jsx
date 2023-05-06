@@ -16,12 +16,13 @@ const Home = () => {
   const [input, setInput] = useState('');
   const [weather, setWeather] = useState(null)
   const [favCities, setFavCities] = useState([]);
+  const [selectedOption, setSelectedOption] = useState('');
 
   useEffect(()=>{
     const init = async () =>{
       const result = await axios.get("https://countriesnow.space/api/v0.1/countries")
       const formatted = []
-      await result.data.data.map(country => country.cities.map(city => formatted.push({city: city, country: country.country})))
+      await result.data.data.map(country => country.cities.map(city => formatted.push(`${city}, ${country.country}`)))
       setCityList(formatted)
       if (localStorage.getItem('token')) {
         setUser(jwtDecode(localStorage.getItem('token')))
@@ -31,7 +32,6 @@ const Home = () => {
   },[])
 
   useEffect(()=>{
-    // if(!user) setFavCities([])
     const getFavs = async () =>{
       if (user) {
         const response = await client.get('/api/favCity', {
@@ -44,11 +44,12 @@ const Home = () => {
     }
     getFavs()
   },[user])
-  
+
   const handleInput =(e) => {
     setInput(e.toLowerCase())
+    // setInput(e)
     if (e.length > 2) {
-      setFilteredCities(cityList.filter(city => city.city.toLowerCase().startsWith(e)))
+      setFilteredCities(cityList.filter(city => city.toLowerCase().startsWith(e)))
     }
   }
   
@@ -60,17 +61,21 @@ const Home = () => {
         country,
       })
       setWeather(apiResponse.data)
+      setSelectedOption('');
+      setInput('')
     }
   }
+
+  console.log(weather);
 
   return (
     <>
       <div className={styles.mainDiv}>
         <div className={styles.citySearch}>
           {user && 
-            <div className="favList">
+            <div className={styles.favList}>
               {favCities ? (
-                <Select placeholder='Select a favorite' onChange={getWeather}>
+                <Select value={selectedOption} placeholder='Select a favorite' onChange={getWeather}>
                   {favCities.map((city, i) =>  <option value={`${city.city}, ${city.country}`} key={i}>{city.city}, {city.country}</option> )}
                 </Select>
                 ) : (
@@ -78,18 +83,22 @@ const Home = () => {
                 )}
             </div>
           }
-          <Input className={styles.input} width={"70%"} placeholder='Search city' value={input} onChange={(e) => handleInput(e.target.value)}/>
-          <span className="material-symbols-outlined" onClick={()=>setInput('')}>delete</span>
+          <div className={styles.input}>
+            <Input width={"80%"} placeholder='Search city' value={input} onChange={(e) => handleInput(e.target.value)}/>
+            <span className="material-icons-outlined" onClick={()=>setInput('')}>delete</span>
+          </div>
           <div className={styles.dropdown} style={{display: input.length > 2 ? "block": "none"}}>
             {filteredCities.length &&
               filteredCities.map((city, i) => 
-                <option key={i} value={`${city.city}, ${city.country}`} onClick={getWeather}>
-                  {city.city}, {city.country}
+                <option key={i} value={city} onClick={getWeather}>
+                  {city}
                 </option>)}
           </div>
         </div>
         {weather && <WeatherCard {...{weather, favCities, setFavCities}}/>}
       </div>
+      
+      {/* <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_sabv8ipv.json" mode="bounce" background="transparent"  speed="1"  style={{width: "30px"}}  loop controls autoplay></lottie-player> */}
     </>
   );
 }

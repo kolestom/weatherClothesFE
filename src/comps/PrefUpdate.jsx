@@ -80,8 +80,8 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
             <div className={styles.createInputs}>
             <Input width={"70%"} placeholder={prefName} value={prefName} onChange={(e) => setPrefName(e.target.value)}/>
             
-            <Input width={"20%"} placeholder={minTemp} type="number" onChange={(e) => setMinTemp(parseInt(e.target.value))}/>
-            <Input width={"20%"} placeholder={maxTemp} type="number" onChange={(e) => setMaxTemp(parseInt(e.target.value))}/>
+            <Input width={"20%"} placeholder={minTemp ? minTemp : 0} type="number" onChange={e => setMinTemp(parseInt(e.target.value))}/>
+            <Input width={"20%"} placeholder={maxTemp ? maxTemp : 0} type="number" onChange={e => setMaxTemp(parseInt(e.target.value))}/>
             
             <div>
                 <input type="checkbox" id="cap" name="cap" checked={cap} value={cap} onChange={()=>setCap(prev => !prev)}/>
@@ -96,7 +96,7 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
                 <label htmlFor="jacket">Jacket</label>
             </div>
             <div>
-                <Input width={"20%"} placeholder={thermoTop} type="number" id='thermoTop' onChange={(e) => setThermoTop(parseInt(e.target.value))}/>
+                <Input width={"20%"} placeholder={thermoTop ? thermoTop : 0} type="number" id='thermoTop' onChange={(e) => setThermoTop(parseInt(e.target.value))}/>
                 <label htmlFor="thermoTop">Thermo top(s)</label>
             </div>
             <RadioGroup defaultValue={shortGloves ? 's' : longGloves ? 'l': 't'} onChange={e=>handleGloves(e, setShortGloves, setLongGloves, setThermoGloves)}>
@@ -117,7 +117,7 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
                 <label htmlFor="leggins">Leggins</label>
             </div>
             <div>
-                <Input width={"20%"} placeholder={warmSocks} type="number" id='warmSocks' onChange={(e) => setWarmSocks(parseInt(e.target.value))}/>
+                <Input width={"20%"} placeholder={warmSocks ? warmSocks : 0} type="number" id='warmSocks' onChange={(e) => setWarmSocks(parseInt(e.target.value))}/>
                 <label htmlFor="warmSocks">Warm socks</label>
             </div>
             <Input width={"70%"} placeholder='Notes' value={notes} onChange={(e) => setNotes(e.target.value)}/>

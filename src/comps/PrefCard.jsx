@@ -1,43 +1,46 @@
 import { client } from "../api/own";
 import { useState, useEffect } from "react";
 import styles from './PrefCard.module.css'
+import { logout } from "../states/user";
 
 export const PrefCard = ({temp}) => {
 
     const [pref, setPref] = useState();
+    const [errorMsg, setErrorMsg] = useState('');
     useEffect(() => {
         const init = async() =>{
-            setPref((await client.get(`/api/pref/${temp}`, {headers:{Authorization:`Bearer: ${localStorage.getItem('token')}`}})).data)
+            try {
+                setPref((await client.get(`/api/pref/${temp}`, {headers:{Authorization:`Bearer: ${localStorage.getItem('token')}`}})).data)
+            } catch (error) {
+                if (error.response.status === 404) setErrorMsg(error.response.data)
+                if (error.response.status === 401) {
+                    setErrorMsg(error.response.data)
+                    setTimeout(logout,2000)
+                }
+            }
         }
         init()
     }, []);
     return ( 
         <>
-            <h1>Clothes suggestion for {temp} C</h1>
-            {pref ? 
+            {pref && !errorMsg &&
                 <div className={styles.prefContainer}>
-                    {pref.clothes.cap && <h1>Cap</h1>}
-                    {pref.clothes.scarf && <h1>Scarf</h1>}
-                    {pref.clothes.jacket && <h1>Jacket</h1>}
+                    <h1>Clothes suggestion for {temp} °C</h1>
+                    {pref.clothes.cap && <img src="../src/img/cap.png"/>}
+                    {pref.clothes.scarf && <img src="../src/img/scarf.png"/>}
+                    {pref.clothes.jacket && <img src="../src/img/jacket.png"/>}
                     {pref.clothes.thermoTop>0 && <h1>Number of thermo tops: {pref.clothes.thermoTop}</h1>}
-                    <div>
-                        <span>Gloves: </span>
-                        {pref.clothes.gloves.short ? <span>Short</span> : pref.clothes.gloves.long ? <span>Long</span> : <span>Thermo</span>}
-                    </div>
-                    <div>
-                        <span>Pants: </span>
-                        {pref.clothes.pants.shorts ? <span>Shorts</span> : <span>Longs</span>}
-                    </div>
-                    {pref.clothes.thermoLeggins && <h1>Thermo Leggins</h1>}
+                    {pref.clothes.gloves.short ?
+                        <img src="../src/img/glovesShort.png"/> 
+                        : pref.clothes.gloves.long ?
+                        <img src="../src/img/glovesLong.png"/>
+                        : <img src="../src/img/glovesThermo.png"/>}
+                    {pref.clothes.pants.shorts ? <img src="../src/img/pantsShorts.png"/> : <img src="../src/img/pantsLong.png"/>}
+                    {pref.clothes.thermoLeggins && <img src="../src/img/thermoLeggins.png"/>}
                     {pref.clothes.warmSocks>0 && <h1>Number of warm socks: {pref.clothes.warmSocks}</h1>}
                     {pref.notes && <p>Notes: {pref.notes}</p>}
-                </div>
-                :
-                <div>
-                    <h1>It seems, you don't have a preference for this temperature.</h1>
-                    <h1>Go to the admin page and set a preference of your desire.</h1>
-                </div>
-            }
+                </div>}
+            {errorMsg && <h1>{errorMsg}</h1>}
         </>
      );
 }

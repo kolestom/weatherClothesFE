@@ -4,6 +4,8 @@
     /* padding-top: 8rem; */
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 .prefContainer, .adminMain {
     display: flex;
@@ -13,7 +15,7 @@
 }
 .prefContainer {
     gap: 2rem;
-    max-width: 45%;
+    max-width: 60%;
 }
 
 .loader {
@@ -28,4 +30,12 @@
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
+}
+
+@media screen and (max-width: 600px) {
+    /* .adminMain {
+        flex-direction: column;
+    
+    } */
+}
+

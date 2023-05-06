@@ -1,24 +1,40 @@
-.mainDiv{
+.mainDiv {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     /* padding-top: 8rem; */
     padding-bottom: 2rem;
 }
-.dropdown{
-    top: 7.5rem;
+
+.dropdown {
+    top: 2.5rem;
     overflow: scroll;
     overflow-x: hidden;
     max-height: 15rem;
+    max-width: 80%;
     /* position: absolute; */
+    z-index: 2;
 }
 
-.citySearch{
+.citySearch {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1rem;
     width: 45%;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.input :nth-child(2) {
+    color: red;
 }
 
 .loader {
@@ -31,6 +47,23 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .mainDiv {
+        flex-direction: column;
+        /* background-color: aqua; */
+    }
+    .citySearch {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}
