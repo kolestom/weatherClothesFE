@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { $user, setUser, logout } from "../states/user";
-import useRXjs from "../hooks/useRXjs";
+import { setUser, logout } from "../states/user";
 import jwtDecode from "jwt-decode";
 import { client } from "../api/own";
 import { Select, useDisclosure } from "@chakra-ui/react";
 import { PrefCreate } from "../comps/PrefCreate";
 import styles from './Admin.module.css'
 import { PrefCardAdmin } from "../comps/PrefCardAdmin";
-
-
 
 export const Admin = () => {
     const navigate = useNavigate()
@@ -21,7 +18,7 @@ export const Admin = () => {
     
     useEffect(()=>{
         if (localStorage.getItem('token')){
-            setUser(jwtDecode(localStorage.getItem('token'))) // verify kell a lejarathoz
+            setUser(jwtDecode(localStorage.getItem('token')))
             const init = async () =>{
                 try {
                     setPrefs((await client.get("/api/pref", {

@@ -6,7 +6,9 @@ import useRXjs from "../hooks/useRXjs";
 import jwtDecode from "jwt-decode";
 import styles from './Home.module.css'
 import { WeatherCard } from "../comps/WeatherCard";
-import { Button, Input, Select, InputRightElement, InputLeftElement, CheckboxIcon, InputGroup } from "@chakra-ui/react";
+import { Input, Select, InputRightElement, InputGroup } from "@chakra-ui/react";
+import SearchInput from "../comps/SearchInput";
+import { getWeather } from "../util/getWeather";
 
 const Home = () => {
   
@@ -51,19 +53,6 @@ const Home = () => {
       setFilteredCities(cityList.filter(city => city.toLowerCase().startsWith(e)))
     }
   }
-  
-  const getWeather = async(e) =>{
-    if (e.target.value) {
-      const [city, country] = e.target.value.split(', ')
-      const apiResponse = await client.post(`/api/weather`, {
-        city,
-        country,
-      })
-      setWeather(apiResponse.data)
-      setSelectedOption('');
-      setInput('')
-    }
-  }
 
   console.log(weather);
   
@@ -74,7 +63,7 @@ const Home = () => {
           {user && 
             <div className={styles.favList}>
               {favCities ? (
-                <Select value={selectedOption} placeholder='Select a favorite' onChange={getWeather}>
+                <Select value={selectedOption} placeholder='Select a favorite' onChange={(e)=> getWeather(e, setWeather, setSelectedOption, setInput)}>
                   {favCities.map((city, i) =>  <option value={`${city.city}, ${city.country}`} key={i}>{city.city}, {city.country}</option> )}
                 </Select>
                 ) : (
@@ -82,24 +71,7 @@ const Home = () => {
                 )}
             </div>
           }
-          <div className={styles.inputContainer}>
-            <div className={styles.input}>
-              <InputGroup>
-                <Input type="text" placeholder='Search city' _placeholder={{ color: 'inherit' }} value={input} onChange={(e) => handleInput(e.target.value)}/>
-                <InputRightElement
-                  children={<span className="material-icons-outlined" onClick={()=>setInput('')}>delete</span>}
-                  >
-                </InputRightElement>
-              </InputGroup>
-            </div>
-            <div className={styles.dropdown} style={{display: input.length > 2 ? "block": "none"}}>
-              {filteredCities.length &&
-                filteredCities.map((city, i) => 
-                  <option key={i} value={city} onClick={getWeather}>
-                    {city}
-                  </option>)}
-            </div>
-          </div>
+          <SearchInput {...{input, handleInput, setInput, filteredCities, setWeather, setSelectedOption}}/>
         </div>
         {weather ?
         <WeatherCard {...{weather, favCities, setFavCities}}/>

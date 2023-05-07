@@ -1,4 +1,4 @@
-import { RadioGroup, Stack, Radio, Input } from '@chakra-ui/react';
+import { Input } from '@chakra-ui/react';
 import styles from '../PrefCreate.module.css'
 
 const Temps = ({minTemp, setMinTemp, maxTemp, setMaxTemp}) => {

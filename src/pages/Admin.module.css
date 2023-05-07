@@ -1,7 +1,6 @@
 .adminMain {
     width: 100%;
     gap: 2rem;
-    /* padding-top: 8rem; */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -30,12 +29,5 @@
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-@media screen and (max-width: 600px) {
-    /* .adminMain {
-        flex-direction: column;
-    
-    } */
 }
 
