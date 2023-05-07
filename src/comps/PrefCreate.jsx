@@ -6,6 +6,8 @@ import { $user } from '../states/user';
 import useRXjs from '../hooks/useRXjs';
 import { handleGloves, handlePants } from '../util/handleClothes';
 import {prefMgmt} from '../util/prefMgmt'
+import Head from './prefComps/Head';
+import UpperBody from './prefComps/UpperBody';
 
 export const PrefCreate = ({setPrefs}) => {
     const user = useRXjs($user)
@@ -73,43 +75,8 @@ export const PrefCreate = ({setPrefs}) => {
                 <Input width={"20%"} size='sm' placeholder={0} type="number" onChange={(e) => setMaxTemp(parseInt(e.target.value))}/>
                 <p>°C</p>
             </div>
-            <div className={styles.head}>Head: 
-                <div>
-                    <div>
-                        <label htmlFor="cap">Cap </label>
-                        <input type="checkbox" id="cap" name="cap" value={cap} onChange={()=>setCap(prev => !prev)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="neckWarmer">Scarf </label>
-                        <input type="checkbox" id="neckWarmer" name="neckWarmer" value={scarf} onChange={()=>setScarf(prev => !prev)}/>
-                    </div>
-
-                </div>
-            </div>
-            <div className={styles.upperBody}> 
-                <div className={styles.torso}>Torso: 
-                    <div>
-                        <div>
-                            <label htmlFor="jacket">Jacket </label>
-                            <input type="checkbox" id="jacket" name="jacket" value={jacket} onChange={()=>setJacket(prev => !prev)}/>
-                        </div>
-                        <div>
-                            <label htmlFor="thermoTop">Thermo top(s)</label>
-                            <Input width={"20%"} placeholder={0} size='sm' type="number" id='thermoTop' onChange={(e) => setThermoTop(parseInt(e.target.value))}/>
-                        </div>
-                    </div>
-                </div>
-                <div className={styles.gloves}>Gloves: 
-                    <RadioGroup defaultValue='s' onChange={e=>handleGloves(e, setShortGloves, setLongGloves, setThermoGloves)}>
-                        <Stack direction='row'>
-                            <Radio value='s'>Short</Radio>
-                            <Radio value='l'>Long</Radio>
-                            <Radio value='t'>Thermo</Radio>
-                        </Stack>
-                    </RadioGroup>
-                </div>
-                
-            </div>
+            <Head {...{cap, setCap, scarf, setScarf}}/>
+            <UpperBody {...{jacket, setJacket, thermoTop, setThermoTop, shortGloves, setShortGloves, longGloves, setLongGloves, setThermoGloves}}/>
             <div className={styles.legs}>Legs:
                 <div className={styles.pants}>Pants:
                     <RadioGroup defaultValue='s' onChange={e=>handlePants(e, setShortPants, setLongPants)}>
