@@ -1,13 +1,11 @@
 import styles from './PrefUpdate.module.css'
 import { client } from '../api/own';
 import { useEffect, useState } from "react";
-import { Button, Input, RadioGroup, Radio, Stack} from '@chakra-ui/react';
+import { Button} from '@chakra-ui/react';
 import { $user } from '../states/user';
 import useRXjs from '../hooks/useRXjs'
-import { handleGloves, handlePants } from '../util/handleClothes';
 import { prefMgmt } from '../util/prefMgmt';
-import Head from './prefComps/Head';
-import UpperBody from './prefComps/UpperBody';
+import MainPrefComp from './prefComps/MainPrefComp';
 
 
 export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
@@ -79,38 +77,10 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
     return ( 
         <div className={styles.createInputs}>
             <h1>Update preference details</h1>
-            <Input width={"70%"} size='sm' placeholder={prefName} value={prefName} onChange={(e) => setPrefName(e.target.value)}/>
-            <div className={styles.temps}>
-                <p>Min. temp</p>
-                <Input width={"20%"} size='sm' placeholder={minTemp ? minTemp : 0} type="number" onChange={e => setMinTemp(parseInt(e.target.value))}/>
-                <p>°C</p>
-            </div>
-            <div className={styles.temps}>
-                <p>Min. temp</p>
-                <Input width={"20%"} size='sm' placeholder={maxTemp ? maxTemp : 0} type="number" onChange={e => setMaxTemp(parseInt(e.target.value))}/>
-                <p>°C</p>
-            </div>
-            <Head {...{cap, setCap, scarf, setScarf}}/>
-            <UpperBody {...{jacket, setJacket, thermoTop, setThermoTop, shortGloves, setShortGloves, longGloves, setLongGloves, setThermoGloves}}/>
-            <div className={styles.legs}>Legs: 
-                <div className={styles.pants}>Pants: 
-                    <RadioGroup defaultValue={shortPants ? 's': 'l'} onChange={e=>handlePants(e, setShortPants, setLongPants)}>
-                        <Stack direction='row'>
-                            <Radio value='s'>Short</Radio>
-                            <Radio value='l'>Long</Radio>
-                        </Stack>
-                    </RadioGroup>
-                </div>
-                <div>
-                    <input type="checkbox" id="leggins" checked={thermoLeggins} name="leggins" value={thermoLeggins} onChange={()=>setThermoLeggins(prev => !prev)}/>
-                    <label htmlFor="leggins">Leggins</label>
-                </div>
-                <div className={styles.socks}>
-                        <label htmlFor="warmSocks">Warm socks</label>
-                        <Input size='sm' width={"20%"} placeholder={warmSocks ? warmSocks : 0} type="number" id='warmSocks' onChange={(e) => setWarmSocks(parseInt(e.target.value))}/>
-                </div>
-            </div>
-            <Input width={"70%"} placeholder='Notes' value={notes} onChange={(e) => setNotes(e.target.value)}/>
+            <MainPrefComp {...{prefName, setPrefName, minTemp, setMinTemp, maxTemp, setMaxTemp,cap, setCap, scarf, setScarf,
+                jacket, setJacket, thermoTop, setThermoTop, shortGloves, setShortGloves, longGloves, setLongGloves, setThermoGloves,
+                shortPants, setShortPants, setLongPants, thermoLeggins, setThermoLeggins, warmSocks, setWarmSocks, notes, setNotes
+                }}/>
             <div className={styles.buttons}>
                 <Button width={"50%"} colorScheme='blue' isDisabled={isDisabled} variant="solid" onClick={updatePref}>Update preference</Button>
                 <Button width={"50%"} colorScheme='red' variant="solid" onClick={handleDelete}>Delete preference</Button>
