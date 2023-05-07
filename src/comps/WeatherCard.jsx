@@ -4,6 +4,7 @@ import { $user } from "../states/user";
 import useRXjs from "../hooks/useRXjs";
 import { PrefCard } from "./PrefCard";
 import { client } from "../api/own";
+import {handleDelCity, handleSaveCity} from '../util/favMgmt.js'
 import {
     Button,
     Modal,
@@ -26,36 +27,13 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
         })
     }, [weather, favCities]);
 
-    const handleSaveCity = async(location) =>{
-        try {
-            const resp = await client.post(`/api/favCity`,{
-                city: location.name,
-                country: location.country,
-                lat: location.lat,
-                lon: location.lon
-            },
-            { headers: {Authorization: `Bearer: ${localStorage.getItem('token')}`}})
-            setFavCities(resp.data)
-        } catch (error) {
-            alert(error.response.data)
-        }
-    }
-    const handleDelCity = async(id) =>{
-        try {
-            const resp = await client.delete(`/api/favCity/${id}`, { headers: {Authorization: `Bearer: ${localStorage.getItem('token')}`}})
-            setFavCities(resp.data)
-        } catch (error) {
-            alert(error.response.data)
-        }
-    }
-
     return ( 
         <>
             <div className={styles.card}>
                     {user &&  <div>{isFavorite.fav ?
-                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleDelCity(isFavorite._id)}>star</span>
+                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleDelCity(isFavorite._id,setFavCities)}>star</span>
                         :
-                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleSaveCity(weather.location)}>star_border</span>
+                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleSaveCity(weather.location,setFavCities)}>star_border</span>
                         }
                         </div>}
                     <p>{weather.location.name}</p>

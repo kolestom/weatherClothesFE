@@ -14,7 +14,7 @@ export const handleSaveCity = async(location, setFavCities) =>{
         alert(error.response.data)
     }
 }
-export const handleDelCity = async(id) =>{
+export const handleDelCity = async(id, setFavCities) =>{
     try {
         const resp = await client.delete(`/api/favCity/${id}`, { headers: {Authorization: `Bearer: ${localStorage.getItem('token')}`}})
         setFavCities(resp.data)
