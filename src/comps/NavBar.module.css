@@ -2,11 +2,8 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 1rem;
+    padding: 0.5rem;
     background-color: rgba(0, 0, 255, 0.681);
-}
-
-.logo {
-    width: 60px;
-    height: 40px;
+    /* background-image: linear-gradient(); */
+    height: 5rem;
 }

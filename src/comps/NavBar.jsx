@@ -11,9 +11,6 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
     MenuDivider
   } from '@chakra-ui/react'
 
@@ -30,7 +27,7 @@ export const NavBar = () => {
         navigate('/')
     }
 
-    const handleDelete = async() =>{
+    const profileDelete = async() =>{
         const conf = confirm('Are you sure you want delete your profile?')
         if (conf) {
             try {
@@ -46,7 +43,9 @@ export const NavBar = () => {
     }
     return ( 
         <nav>
-            <iframe className={styles.logo} src="https://embed.lottiefiles.com/animation/89465" ></iframe>
+            <div className={styles.logoContainer}>
+                <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_sabv8ipv.json" mode="bounce" background="transparent"  speed="2"  style={{width: "80px"}}  loop autoplay></lottie-player>
+            </div>
             {/* <div>Icons made by <a href="https://www.flaticon.com/authors/ultimatearm" title="ultimatearm">ultimatearm</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/monkik" title="monkik">monkik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/victoruler" title="Victoruler">Victoruler</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/slidicon" title="Slidicon">Slidicon</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}
             {user && <h1>Hi, {user.name}!</h1>}
             {user ? <Menu>
@@ -67,7 +66,7 @@ export const NavBar = () => {
                     <MenuItem onClick={()=>navigate('/')}>Home page</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     <MenuDivider />
-                    <MenuItem onClick={handleDelete} >Delete profile</MenuItem>
+                    <MenuItem onClick={profileDelete} >Delete profile</MenuItem>
                 </MenuList>
             </Menu>:
             <Button leftIcon={<FcGoogle/>} onClick={handleLogin} colorScheme="gray" variant="solid" >Login</Button>}

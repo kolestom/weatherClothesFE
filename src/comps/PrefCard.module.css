@@ -1,0 +1,45 @@
+.prefContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.smalls{
+    width: 2rem;
+}
+
+.capGloves{
+    width: 3rem;
+    /* height: 15%; */
+}
+
+.upperContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thermoTopContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+}
+
+.thermoTopContainer :nth-child(1){
+    height: 70%;
+    width: 70%;
+}
+
+.pantsContainer {
+    display: flex;
+}
+
+.socksContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.socksContainer :nth-child(1) {
+    width: 50%;
+    /* height: 15%; */
+}

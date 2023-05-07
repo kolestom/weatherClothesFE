@@ -6,7 +6,7 @@ import useRXjs from "../hooks/useRXjs";
 import jwtDecode from "jwt-decode";
 import styles from './Home.module.css'
 import { WeatherCard } from "../comps/WeatherCard";
-import { Button, Input, Select } from "@chakra-ui/react";
+import { Button, Input, Select, InputRightElement, InputLeftElement, CheckboxIcon, InputGroup } from "@chakra-ui/react";
 
 const Home = () => {
   
@@ -47,7 +47,6 @@ const Home = () => {
 
   const handleInput =(e) => {
     setInput(e.toLowerCase())
-    // setInput(e)
     if (e.length > 2) {
       setFilteredCities(cityList.filter(city => city.toLowerCase().startsWith(e)))
     }
@@ -67,7 +66,7 @@ const Home = () => {
   }
 
   console.log(weather);
-
+  
   return (
     <>
       <div className={styles.mainDiv}>
@@ -83,22 +82,29 @@ const Home = () => {
                 )}
             </div>
           }
-          <div className={styles.input}>
-            <Input width={"80%"} placeholder='Search city' value={input} onChange={(e) => handleInput(e.target.value)}/>
-            <span className="material-icons-outlined" onClick={()=>setInput('')}>delete</span>
-          </div>
-          <div className={styles.dropdown} style={{display: input.length > 2 ? "block": "none"}}>
-            {filteredCities.length &&
-              filteredCities.map((city, i) => 
-                <option key={i} value={city} onClick={getWeather}>
-                  {city}
-                </option>)}
+          <div className={styles.inputContainer}>
+            <div className={styles.input}>
+              <InputGroup>
+                <Input type="text" placeholder='Search city' _placeholder={{ color: 'inherit' }} value={input} onChange={(e) => handleInput(e.target.value)}/>
+                <InputRightElement
+                  children={<span className="material-icons-outlined" onClick={()=>setInput('')}>delete</span>}
+                  >
+                </InputRightElement>
+              </InputGroup>
+            </div>
+            <div className={styles.dropdown} style={{display: input.length > 2 ? "block": "none"}}>
+              {filteredCities.length &&
+                filteredCities.map((city, i) => 
+                  <option key={i} value={city} onClick={getWeather}>
+                    {city}
+                  </option>)}
+            </div>
           </div>
         </div>
-        {weather && <WeatherCard {...{weather, favCities, setFavCities}}/>}
+        {weather ?
+        <WeatherCard {...{weather, favCities, setFavCities}}/>
+        : <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_sHPrbL4o3f.json" background="transparent"  speed="2"  style={{width: "300px"}}  loop autoplay></lottie-player>}
       </div>
-      
-      {/* <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_sabv8ipv.json" mode="bounce" background="transparent"  speed="1"  style={{width: "30px"}}  loop controls autoplay></lottie-player> */}
     </>
   );
 }

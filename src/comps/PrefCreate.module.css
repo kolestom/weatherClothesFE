@@ -1,5 +1,65 @@
 .createInputs {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
     min-width: 20rem;
+    border: 1px solid green;
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+
+.temps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid green;
+    border-radius: 0.5rem;
+}
+
+.upperBody{
+    border: 1px solid green;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.torso{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.gloves{
+    display: flex;
+}
+
+.legs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid green;
+    border-radius: 0.5rem;
+}
+
+.pants{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.socks{
+    display: flex;
+    justify-content: center;
 }

@@ -55,18 +55,18 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
                     {user &&  <div>{isFavorite.fav ?
                         <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleDelCity(isFavorite._id)}>star</span>
                         :
-                        <span className="material-icons-outlined" style={{color: 'green'}} onClick={()=>handleSaveCity(weather.location)}>star_border</span>
+                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleSaveCity(weather.location)}>star_border</span>
                         }
                         </div>}
                     <p>{weather.location.name}</p>
                     <p>{weather.location.country}</p>
                     <p>{weather.current.last_updated}</p>
-                    <p onClick={onOpen}>{weather.current.temp_c} C</p>
+                    <p className={user ? styles.loginTemp : styles.temp} onClick={onOpen}>{weather.current.temp_c} °C</p>
                     <p>Wind direction: {weather.current.wind_dir}</p>
                     <p>Wind: {weather.current.wind_kph} Kph</p>
                     <img src={weather.current.condition.icon} alt="icon.png" />
             </div>
-            {user && <Modal isOpen={isOpen} size={'xl'} onClose={onClose}>
+            {user && <Modal isOpen={isOpen} size={'md'} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent>
                             <ModalBody>

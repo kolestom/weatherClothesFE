@@ -1,4 +1,5 @@
 .card{
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,5 +9,28 @@
     border-radius: 0.5rem;
     padding: 1rem;
     max-width: 90%;
-    
+    position: relative;
+    background-color: #f3f3f383;
+}
+
+.card span{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+.card span:hover{
+    text-shadow: 2px 2px 5px black;
+}
+.temp {
+    font-size: 2.5rem;
+}
+.loginTemp {
+    font-size: 2.5rem;
+    color: blue;
+}
+
+.loginTemp:hover{
+    cursor: pointer;
+    text-shadow: 2px 2px 5px black;
 }

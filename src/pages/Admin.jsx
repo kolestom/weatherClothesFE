@@ -12,7 +12,6 @@ import { PrefCardAdmin } from "../comps/PrefCardAdmin";
 
 
 export const Admin = () => {
-    const user = useRXjs($user)
     const navigate = useNavigate()
     const [prefs, setPrefs] = useState()
     const [selectedPref, setSelectedPref] = useState()
@@ -53,7 +52,7 @@ export const Admin = () => {
       <div className={styles.adminMain}>
         <div className={styles.prefContainer}>
           {prefs ? (
-            <Select value={selectedOption} placeholder="Select a preference" onChange={handlePrefUpdate}>
+            <Select value={selectedOption} placeholder="Select a preference to update" onChange={handlePrefUpdate}>
                 {prefs.map(pref => <option value={pref._id} key={pref._id}>{pref.prefName}, min: {pref.minTemp} °C, max: {pref.maxTemp} °C</option>)}
             </Select>
           ) : (

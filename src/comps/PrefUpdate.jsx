@@ -75,55 +75,77 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
     }
 
     return ( 
-        <>
+        <div className={styles.createInputs}>
             <h1>Update preference details</h1>
-            <div className={styles.createInputs}>
-            <Input width={"70%"} placeholder={prefName} value={prefName} onChange={(e) => setPrefName(e.target.value)}/>
-            
-            <Input width={"20%"} placeholder={minTemp ? minTemp : 0} type="number" onChange={e => setMinTemp(parseInt(e.target.value))}/>
-            <Input width={"20%"} placeholder={maxTemp ? maxTemp : 0} type="number" onChange={e => setMaxTemp(parseInt(e.target.value))}/>
-            
-            <div>
-                <input type="checkbox" id="cap" name="cap" checked={cap} value={cap} onChange={()=>setCap(prev => !prev)}/>
-                <label htmlFor="cap">Cap</label>
+            <Input width={"70%"} size='sm' placeholder={prefName} value={prefName} onChange={(e) => setPrefName(e.target.value)}/>
+            <div className={styles.temps}>
+                <p>Min. temp</p>
+                <Input width={"20%"} size='sm' placeholder={minTemp ? minTemp : 0} type="number" onChange={e => setMinTemp(parseInt(e.target.value))}/>
+                <p>°C</p>
             </div>
-            <div>
-                <input type="checkbox" id="neckWarmer" checked={scarf} name="neckWarmer" value={scarf} onChange={()=>setScarf(prev => !prev)}/>
-                <label htmlFor="neckWarmer">Neck warmer</label>
+            <div className={styles.temps}>
+                <p>Min. temp</p>
+                <Input width={"20%"} size='sm' placeholder={maxTemp ? maxTemp : 0} type="number" onChange={e => setMaxTemp(parseInt(e.target.value))}/>
+                <p>°C</p>
             </div>
-            <div>
-                <input type="checkbox" id="jacket" checked={jacket} name="jacket" value={jacket} onChange={()=>setJacket(prev => !prev)}/>
-                <label htmlFor="jacket">Jacket</label>
+            <div className={styles.head}>Head: 
+                <div>
+                    <div>
+                        <input type="checkbox" id="cap" name="cap" checked={cap} value={cap} onChange={()=>setCap(prev => !prev)}/>
+                        <label htmlFor="cap">Cap</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="neckWarmer" checked={scarf} name="neckWarmer" value={scarf} onChange={()=>setScarf(prev => !prev)}/>
+                        <label htmlFor="neckWarmer">Neck warmer</label>
+                    </div>
+                </div>
             </div>
-            <div>
-                <Input width={"20%"} placeholder={thermoTop ? thermoTop : 0} type="number" id='thermoTop' onChange={(e) => setThermoTop(parseInt(e.target.value))}/>
-                <label htmlFor="thermoTop">Thermo top(s)</label>
+            <div className={styles.upperBody}>
+                <div className={styles.torso}>Torso
+                    <div>
+                        <div>
+                            <label htmlFor="jacket">Jacket</label>
+                            <input type="checkbox" id="jacket" checked={jacket} name="jacket" value={jacket} onChange={()=>setJacket(prev => !prev)}/>
+                        </div>
+                        <div>
+                            <label htmlFor="thermoTop">Thermo top(s)</label>
+                            <Input width={"20%"} placeholder={thermoTop ? thermoTop : 0} type="number" id='thermoTop' onChange={(e) => setThermoTop(parseInt(e.target.value))}/>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.gloves}>Gloves:
+                    <RadioGroup defaultValue={shortGloves ? 's' : longGloves ? 'l': 't'} onChange={e=>handleGloves(e, setShortGloves, setLongGloves, setThermoGloves)}>
+                        <Stack direction='row'>
+                            <Radio value='s'>Short</Radio>
+                            <Radio value='l'>Long</Radio>
+                            <Radio value='t'>Thermo</Radio>
+                        </Stack>
+                    </RadioGroup>
+                </div>
             </div>
-            <RadioGroup defaultValue={shortGloves ? 's' : longGloves ? 'l': 't'} onChange={e=>handleGloves(e, setShortGloves, setLongGloves, setThermoGloves)}>
-                <Stack direction='row'>
-                    <Radio value='s'>Short</Radio>
-                    <Radio value='l'>Long</Radio>
-                    <Radio value='t'>Thermo</Radio>
-                </Stack>
-            </RadioGroup>
-            <RadioGroup defaultValue={shortPants ? 's': 'l'} onChange={e=>handlePants(e, setShortPants, setLongPants)}>
-                <Stack direction='row'>
-                    <Radio value='s'>Short</Radio>
-                    <Radio value='l'>Long</Radio>
-                </Stack>
-            </RadioGroup>
-            <div>
-                <input type="checkbox" id="leggins" checked={thermoLeggins} name="leggins" value={thermoLeggins} onChange={()=>setThermoLeggins(prev => !prev)}/>
-                <label htmlFor="leggins">Leggins</label>
-            </div>
-            <div>
-                <Input width={"20%"} placeholder={warmSocks ? warmSocks : 0} type="number" id='warmSocks' onChange={(e) => setWarmSocks(parseInt(e.target.value))}/>
-                <label htmlFor="warmSocks">Warm socks</label>
+            <div className={styles.legs}>Legs: 
+                <div className={styles.pants}>Pants: 
+                    <RadioGroup defaultValue={shortPants ? 's': 'l'} onChange={e=>handlePants(e, setShortPants, setLongPants)}>
+                        <Stack direction='row'>
+                            <Radio value='s'>Short</Radio>
+                            <Radio value='l'>Long</Radio>
+                        </Stack>
+                    </RadioGroup>
+                </div>
+                <div>
+                    <input type="checkbox" id="leggins" checked={thermoLeggins} name="leggins" value={thermoLeggins} onChange={()=>setThermoLeggins(prev => !prev)}/>
+                    <label htmlFor="leggins">Leggins</label>
+                </div>
+                <div className={styles.socks}>
+                        <label htmlFor="warmSocks">Warm socks</label>
+                        <Input size='sm' width={"20%"} placeholder={warmSocks ? warmSocks : 0} type="number" id='warmSocks' onChange={(e) => setWarmSocks(parseInt(e.target.value))}/>
+                </div>
             </div>
             <Input width={"70%"} placeholder='Notes' value={notes} onChange={(e) => setNotes(e.target.value)}/>
-            <Button width={"50%"} colorScheme='blue' isDisabled={isDisabled} variant="solid" onClick={updatePref}>Update preference</Button>
-            <Button width={"50%"} colorScheme='red' variant="solid" onClick={handleDelete}>Delete preference</Button>
+            <div className={styles.buttons}>
+                <Button width={"50%"} colorScheme='blue' isDisabled={isDisabled} variant="solid" onClick={updatePref}>Update preference</Button>
+                <Button width={"50%"} colorScheme='red' variant="solid" onClick={handleDelete}>Delete preference</Button>
+            </div>
         </div>
-        </>
      );
 }
