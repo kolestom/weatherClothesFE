@@ -1,6 +1,7 @@
 import { RadioGroup, Stack, Radio, Input } from '@chakra-ui/react';
 import styles from '../PrefCreate.module.css'
 import { handlePants } from '../../util/handleClothes';
+import InputNumber from './InputNumber';
 
 const Legs = ({shortPants, setShortPants, setLongPants, thermoLeggins, setThermoLeggins, warmSocks, setWarmSocks}) => {
     return ( 
@@ -8,18 +9,18 @@ const Legs = ({shortPants, setShortPants, setLongPants, thermoLeggins, setThermo
                 <div className={styles.pants}>Pants: 
                     <RadioGroup defaultValue={shortPants ? 's': 'l'} onChange={e=>handlePants(e, setShortPants, setLongPants)}>
                         <Stack direction='row'>
-                            <Radio value='s'>Short</Radio>
-                            <Radio value='l'>Long</Radio>
+                            <Radio size='sm' value='s'>Short</Radio>
+                            <Radio size='sm' value='l'>Long</Radio>
                         </Stack>
                     </RadioGroup>
                 </div>
-                <div>
-                    <input type="checkbox" id="leggins" checked={thermoLeggins} name="leggins" value={thermoLeggins} onChange={()=>setThermoLeggins(prev => !prev)}/>
+                <div className={styles.leggins}>
                     <label htmlFor="leggins">Leggins</label>
+                    <input type="checkbox" id="leggins" checked={thermoLeggins} name="leggins" value={thermoLeggins} onChange={()=>setThermoLeggins(prev => !prev)}/>
                 </div>
                 <div className={styles.socks}>
                         <label htmlFor="warmSocks">Warm socks</label>
-                        <Input size='sm' width={"20%"} placeholder={warmSocks ? warmSocks : 0} type="number" id='warmSocks' onChange={(e) => setWarmSocks(parseInt(e.target.value))}/>
+                        <InputNumber value={warmSocks} setValue={setWarmSocks}/>
                 </div>
             </div>
      );

@@ -31,3 +31,9 @@
     100% { transform: rotate(360deg); }
 }
 
+@media screen and (max-width: 600px) {
+    .adminMain{
+        gap: 1rem;
+        font-size: small;
+    }
+}

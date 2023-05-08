@@ -1,8 +1,8 @@
 import { client } from "../api/own"
 
 export const getWeather = async(e, setWeather, setSelectedOption, setInput) =>{
-    if (e.target.value) {
-      const [city, country] = e.target.value.split(', ')
+    if (e) {
+      const [city, country] = e.split(', ')
       const apiResponse = await client.post(`/api/weather`, {
         city,
         country,

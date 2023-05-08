@@ -10,34 +10,6 @@
     background-size: cover;
 }
 
-.dropdown {
-    overflow: scroll;
-    overflow-x: hidden;
-    max-height: 15rem;
-    max-width: 80%;
-    z-index: 2;
-}
-.dropdown option {
-    border: 1px solid gray;
-    border-radius: 5px;
-    background-color: white;
-}
-
-.dropdown option:hover {
-    background-color: rgb(206, 206, 206);
-    cursor: pointer;
-}
-.citySearch {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    width: 35%;
-    border-radius: 5px;
-}
-
 .favList {
     display: flex;
     justify-content: center;
@@ -51,6 +23,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 .input {
     background-color: #f3f3f383;
@@ -58,7 +31,6 @@
     display: flex;
     align-items: center;
     /* justify-content: space-between; */
-    /* position: relative; */
 }
 
 .input :nth-child(2) {
@@ -68,6 +40,39 @@
 .input :nth-child(2):hover {
     color: black;
 }
+
+
+.dropdown {
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 15rem;
+    /* max-width: 90%; */
+    position: absolute;
+    z-index: 1;
+    top: 2.5rem;
+}
+.dropdown div {
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.746);
+    padding: 0.2rem 0.5rem;
+}
+
+.dropdown div:hover {
+    background-color: rgba(79, 193, 107, 0.856);
+    cursor: pointer;
+}
+.citySearch {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 35%;
+    border-radius: 5px;
+}
+
 
 .loader {
     border: 16px solid #f3f3f3;

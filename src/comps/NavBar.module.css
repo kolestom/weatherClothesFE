@@ -7,3 +7,15 @@ nav {
     /* background-image: linear-gradient(); */
     height: 5rem;
 }
+
+h1{
+    font-family: 'Julee', cursive;
+    font-size: 1.8rem;
+    color: rgb(1, 95, 1);
+}
+
+@media screen and (max-width: 600px) {
+    h1{
+        font-size: 1.5rem;
+    }
+}

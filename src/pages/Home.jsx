@@ -35,6 +35,7 @@ const Home = () => {
 
   useEffect(()=>{
     const getFavs = async () =>{
+      // try catch, h itt is kibukjon, ha lejart a token
       if (user) {
         const response = await client.get('/api/favCity', {
           headers: {
@@ -53,8 +54,6 @@ const Home = () => {
       setFilteredCities(cityList.filter(city => city.toLowerCase().startsWith(e)))
     }
   }
-
-  console.log(weather);
   
   return (
     <>
@@ -63,7 +62,7 @@ const Home = () => {
           {user && 
             <div className={styles.favList}>
               {favCities ? (
-                <Select value={selectedOption} placeholder='Select a favorite' onChange={(e)=> getWeather(e, setWeather, setSelectedOption, setInput)}>
+                <Select value={selectedOption} placeholder='Select a favorite' onChange={(e)=> getWeather(e.target.value, setWeather, setSelectedOption, setInput)}>
                   {favCities.map((city, i) =>  <option value={`${city.city}, ${city.country}`} key={i}>{city.city}, {city.country}</option> )}
                 </Select>
                 ) : (
@@ -73,9 +72,11 @@ const Home = () => {
           }
           <SearchInput {...{input, handleInput, setInput, filteredCities, setWeather, setSelectedOption}}/>
         </div>
-        {weather ?
-        <WeatherCard {...{weather, favCities, setFavCities}}/>
-        : <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_sHPrbL4o3f.json" background="transparent"  speed="2"  style={{width: "300px"}}  loop autoplay></lottie-player>}
+        {weather ? (
+          <WeatherCard {...{weather, favCities, setFavCities}}/>
+        ) : (
+          <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_sHPrbL4o3f.json" background="transparent"  speed="2"  style={{width: "300px"}}  loop autoplay></lottie-player>
+        )}
       </div>
     </>
   );

@@ -8,6 +8,7 @@
     border: 1px solid green;
     border-radius: 1rem;
     padding: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .temps {
@@ -26,9 +27,15 @@
     border-radius: 0.5rem;
 }
 
+.head div div{
+    display: flex;
+    gap: 0.5rem;
+}
+
 .upperBody{
     border: 1px solid green;
     border-radius: 0.5rem;
+    padding: 0.2rem 0rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,10 +45,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.torsoCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 90%;
+}
+
+.jacket{
+    display: flex;
     gap: 1rem;
+    justify-content: center;
+}
+.thermoTop{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .gloves{
     display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    padding: 0.5rem 0.5rem;
 }
 
 .legs{
@@ -54,6 +83,11 @@
     border-radius: 0.5rem;
 }
 
+.leggins{
+    display: flex;
+    gap: 0.5rem;
+}
+
 .pants{
     display: flex;
     gap: 0.5rem;
@@ -62,4 +96,5 @@
 .socks{
     display: flex;
     justify-content: center;
+    align-items: center;
 }

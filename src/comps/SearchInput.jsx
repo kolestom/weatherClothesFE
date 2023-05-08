@@ -3,6 +3,7 @@ import { InputGroup, Input, InputRightElement } from '@chakra-ui/react';
 import { getWeather } from '../util/getWeather';
 
 const SearchInput = ({input, handleInput, setInput, filteredCities, setWeather, setSelectedOption}) => {
+
     return ( 
         <div className={styles.inputContainer}>
             <div className={styles.input}>
@@ -15,11 +16,11 @@ const SearchInput = ({input, handleInput, setInput, filteredCities, setWeather, 
               </InputGroup>
             </div>
             <div className={styles.dropdown} style={{display: input.length > 2 ? "block": "none"}}>
-              {filteredCities.length &&
+              {filteredCities.length >0 &&
                 filteredCities.map((city, i) => 
-                  <option key={i} value={city} onClick={(e)=> getWeather(e, setWeather, setSelectedOption, setInput)}>
+                  <div key={i} onClick={(e)=> getWeather(e.target.innerText, setWeather, setSelectedOption, setInput)}>
                     {city}
-                  </option>)}
+                  </div>)}
             </div>
           </div>
      );

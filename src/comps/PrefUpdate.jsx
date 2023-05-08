@@ -54,7 +54,6 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
                 notes,
                 selectedPref._id
               )
-            console.log(response.data);
             setPrefs(response.data)
             alert("Preference updated successfully") // ne alert, hanem modal
             onClose()  
