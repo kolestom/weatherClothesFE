@@ -1,4 +1,3 @@
-import styles from './PrefCardAdmin.module.css'
 import { PrefUpdate } from './PrefUpdate'
 import {
     Button,

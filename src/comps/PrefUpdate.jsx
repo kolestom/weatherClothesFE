@@ -2,13 +2,15 @@ import styles from './PrefUpdate.module.css'
 import { client } from '../api/own';
 import { useEffect, useState } from "react";
 import { Button} from '@chakra-ui/react';
-import { $user } from '../states/user';
+import { $user, logout } from '../states/user';
 import useRXjs from '../hooks/useRXjs'
 import { prefMgmt } from '../util/prefMgmt';
 import MainPrefComp from './prefComps/MainPrefComp';
+import { useNavigate } from 'react-router-dom';
 
 
 export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
+    const navigate = useNavigate()
     const user = useRXjs($user)
     const [prefName, setPrefName] = useState(selectedPref.prefName);
     const [minTemp, setMinTemp] = useState(selectedPref.minTemp);
@@ -59,17 +61,27 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
             onClose()  
         } catch (error) {
             alert(error.response.data)
+            onClose()
+            logout()
+            navigate('/')
         }
     }
 
     const handleDelete = async () =>{
         const conf = confirm("Are you sure you want to delete this preference?")
         if (conf) {
-            const resp = await client.delete(`/api/pref/${selectedPref._id}`, {
-                headers: { Authorization: `Bearer: ${localStorage.getItem('token')}`}
-            })
-            setPrefs(resp.data)
-            onClose()
+            try {
+                const resp = await client.delete(`/api/pref/${selectedPref._id}`, {
+                    headers: { Authorization: `Bearer: ${localStorage.getItem('token')}`}
+                })
+                setPrefs(resp.data)
+                onClose()
+            } catch (error) {
+                alert(error.response.data)
+                onClose()
+                logout()
+                navigate('/')
+            }
         }
     }
 

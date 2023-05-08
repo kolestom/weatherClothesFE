@@ -3,12 +3,12 @@ import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepp
 const InputNumber = ({value, setValue}) => {
     return ( 
         <NumberInput size='xs' maxW={16} defaultValue={value ? value : 0} min={0} max={9} onChange={(e) => setValue(parseInt(e))}>
-                            <NumberInputField />
-                            <NumberInputStepper>
-                                <NumberIncrementStepper />
-                                <NumberDecrementStepper />
-                            </NumberInputStepper>
-                        </NumberInput>
+            <NumberInputField />
+            <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+            </NumberInputStepper>
+        </NumberInput>
      );
 }
  

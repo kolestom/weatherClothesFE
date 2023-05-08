@@ -11,20 +11,28 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuDivider
+    MenuDivider,
+    useToast
   } from '@chakra-ui/react'
 
 export const NavBar = () => {
+    const toast = useToast()
     const navigate = useNavigate()
     const user = useRXjs($user)
 
     const handleLogin = () => {
         window.location.href = fullUrl;
-      }
-
+    }
+    
     const handleLogout = () => {
         logout()
         navigate('/')
+        toast({
+            title: 'Logout successful.',
+            status: 'success',
+            duration: 4000,
+            isClosable: true,
+          })
     }
 
     const profileDelete = async() =>{

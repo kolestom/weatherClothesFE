@@ -10,7 +10,7 @@ const Head = ({cap, setCap, scarf, setScarf}) => {
                 </div>
                 <div>
                     <label htmlFor="neckWarmer">Scarf</label>
-                    <input type="checkbox" id="neckWarmer" checked={scarf} name="neckWarmer" value={scarf} onChange={()=>setScarf(prev => !prev)}/>
+                    <input type="checkbox" id="scarf" checked={scarf} name="scarf" value={scarf} onChange={()=>setScarf(prev => !prev)}/>
                 </div>
             </div>
         </div>
