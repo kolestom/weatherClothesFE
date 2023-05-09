@@ -1,4 +1,3 @@
-// import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { login } from "../states/user";
@@ -13,14 +12,11 @@ const Callback = () => {
             login(code)
             navigate('/')
         }
-
     }, []);
 
     
     return ( 
-        <>
             <h2>Callback Page</h2>
-        </>
      );
 }
 export default Callback

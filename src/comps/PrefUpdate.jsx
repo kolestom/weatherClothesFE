@@ -67,7 +67,7 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
               })
             onClose()  
         } catch (error) {
-            alert(error.response.data) // ne alert, hanem modal
+            alert(error.response.data)
             onClose()
             logout()
             navigate('/')
@@ -90,7 +90,7 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
                   })
                 onClose()
             } catch (error) {
-                alert(error.response.data) // ne alert, hanem modal
+                alert(error.response.data)
                 onClose()
                 logout()
                 navigate('/')
