@@ -1,0 +1,40 @@
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.input {
+    background-color: #f3f3f383;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.input :nth-child(2) {
+    color: #4e4e4e;
+    cursor: pointer;
+}
+.input :nth-child(2):hover {
+    color: black;
+}
+
+.dropdown {
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 15rem;
+    position: absolute;
+    z-index: 1;
+    top: 2.5rem;
+}
+.dropdown div {
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.746);
+    padding: 0.2rem 0.5rem;
+}
+
+.dropdown div:hover {
+    background-color: rgba(79, 193, 107, 0.856);
+    cursor: pointer;
+}

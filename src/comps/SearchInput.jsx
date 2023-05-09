@@ -1,4 +1,4 @@
-import styles from '../pages/Home.module.css'
+import styles from './SearchInput.module.css'
 import { InputGroup, Input, InputRightElement } from '@chakra-ui/react';
 import { getWeather } from '../util/getWeather';
 import { useState } from 'react';
@@ -20,7 +20,7 @@ const SearchInput = ({setWeather, cityList}) => {
         <div className={styles.inputContainer}>
             <div className={styles.input}>
               <InputGroup>
-                <Input type="text" placeholder='Search city' _placeholder={{ color: 'inherit' }} value={input} onChange={(e) => handleInput(e.target.value)}/>
+                <Input type="text" htmlSize={24} width='auto' placeholder='Search city' _placeholder={{ color: 'inherit' }} value={input} onChange={(e) => handleInput(e.target.value)}/>
                 <InputRightElement
                   children={<span className="material-icons-outlined" onClick={()=>setInput('')}>delete</span>}
                   >
