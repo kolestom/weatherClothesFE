@@ -8,6 +8,23 @@ import MainPrefComp from './prefComps/MainPrefComp';
 
 export const PrefCreate = ({setPrefs}) => {
     const user = useRXjs($user)
+    // const [pref, setPref] = useState({
+    //     prefName: '',
+    //     minTemp: 0,
+    //     maxTemp: 0,
+    //     cap: false,
+    //     scarf: false,
+    //     jacket: false,
+    //     thermoTop:0,
+    //     shortGloves: true,
+    //     longGloves: false,
+    //     thermoGloves: false,
+    //     shortPants: true,
+    //     longPants: false,
+    //     thermoLeggins: false,
+    //     warmSocks: 0,
+    //     notes: ''
+    // });
     const [prefName, setPrefName] = useState('');
     const [minTemp, setMinTemp] = useState(0);
     const [maxTemp, setMaxTemp] = useState(0);

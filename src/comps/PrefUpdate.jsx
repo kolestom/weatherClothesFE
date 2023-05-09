@@ -7,9 +7,11 @@ import useRXjs from '../hooks/useRXjs'
 import { prefMgmt } from '../util/prefMgmt';
 import MainPrefComp from './prefComps/MainPrefComp';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react';
 
 
 export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
+    const toast = useToast()
     const navigate = useNavigate()
     const user = useRXjs($user)
     const [prefName, setPrefName] = useState(selectedPref.prefName);
@@ -57,10 +59,15 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
                 selectedPref._id
               )
             setPrefs(response.data)
-            alert("Preference updated successfully") // ne alert, hanem modal
+            toast({
+                title: 'Preference updated.',
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+              })
             onClose()  
         } catch (error) {
-            alert(error.response.data)
+            alert(error.response.data) // ne alert, hanem modal
             onClose()
             logout()
             navigate('/')
@@ -75,9 +82,15 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
                     headers: { Authorization: `Bearer: ${localStorage.getItem('token')}`}
                 })
                 setPrefs(resp.data)
+                toast({
+                    title: 'Preference deleted.',
+                    status: 'success',
+                    duration: 4000,
+                    isClosable: true,
+                  })
                 onClose()
             } catch (error) {
-                alert(error.response.data)
+                alert(error.response.data) // ne alert, hanem modal
                 onClose()
                 logout()
                 navigate('/')

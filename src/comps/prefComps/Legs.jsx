@@ -1,4 +1,4 @@
-import { RadioGroup, Stack, Radio, Input } from '@chakra-ui/react';
+import { RadioGroup, Stack, Radio } from '@chakra-ui/react';
 import styles from '../PrefCreate.module.css'
 import { handlePants } from '../../util/handleClothes';
 import InputNumber from './InputNumber';
