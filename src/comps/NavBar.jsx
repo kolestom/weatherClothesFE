@@ -54,7 +54,7 @@ export const NavBar = () => {
             <div className={styles.logoContainer}>
                 <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_sabv8ipv.json" mode="bounce" background="transparent"  speed="2"  style={{width: "80px"}}  loop autoplay></lottie-player>
             </div>
-            {user && <h1>Hi, {(user.name.split(' '))[1]}!</h1>}
+            {user && <h1 className={styles.greet}>Hi, {(user.name.split(' '))[1]}!</h1>}
             {user ? <Menu>
                 <MenuButton
                     px={4}

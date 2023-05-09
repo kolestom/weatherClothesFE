@@ -26,8 +26,7 @@
 }
 
 .thermoTopContainer :nth-child(1){
-    height: 70%;
-    width: 70%;
+    width: 65%;
 }
 
 .pantsContainer {
@@ -41,7 +40,6 @@
 }
 .socksContainer :nth-child(1) {
     width: 50%;
-    /* height: 15%; */
 }
 
 .loader {
@@ -56,4 +54,10 @@
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@media screen and (max-width: 600px) {
+    h1{
+        font-size: 1rem;
+    }
 }

@@ -35,7 +35,7 @@ export const PrefCard = ({temp}) => {
                         {pref.clothes.thermoTop>0 &&
                             <div className={styles.thermoTopContainer}>
                                 <img src="../src/img/sweater.png"/>
-                                <h1>Thermo tops: {pref.clothes.thermoTop}</h1>
+                                <h1>Thermo top: {pref.clothes.thermoTop}</h1>
                             </div> }
                     </div>
                     <div className={styles.pantsContainer}>

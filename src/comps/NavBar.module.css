@@ -8,7 +8,7 @@ nav {
     height: 5rem;
 }
 
-h1{
+.greet{
     font-family: 'Julee', cursive;
     font-size: 1.8rem;
     color: rgb(1, 95, 1);

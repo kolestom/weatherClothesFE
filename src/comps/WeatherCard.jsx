@@ -11,6 +11,7 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const user = useRXjs($user)
     const [favoriteID, setFavoriteID] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     
     useEffect(() => {
         setFavoriteID('')
@@ -19,22 +20,15 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
         })
     }, [weather, favCities]);
 
-    const handleSaveCity = async ()=>{
-        const resp = await saveCity(weather.location)
+    const handleCity = async (mode)=>{
+        setIsLoading(true)
+        let resp
+        mode ? resp = await delCity(favoriteID) : resp = await saveCity(weather.location)
+        setIsLoading(false)
         setFavCities(resp)
         toast({
-            title: `${weather.location.name} saved as favorite`,
-            status: 'success',
-            duration: 4000,
-            isClosable: true,
-          })
-    }
-    const handleDelCity = async ()=>{
-        const resp = await delCity(favoriteID)
-        setFavCities(resp)
-        toast({
-            title: `${weather.location.name} removed from favorites`,
-            status: 'info',
+            title: (mode ? `${weather.location.name} removed from favorites`: `${weather.location.name} saved as favorite`),
+            status: (mode ? 'info' : 'success'),
             duration: 4000,
             isClosable: true,
           })
@@ -43,18 +37,19 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
     return ( 
         <>
             <div className={styles.card}>
-                    {user &&  <div>{favoriteID.length ?
-                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleDelCity(favoriteID)}>star</span>
+                    {user && !isLoading && <div>{favoriteID.length ?
+                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleCity(1)}>star</span>
                         :
-                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleSaveCity(weather.location)}>star_border</span>
+                        <span className="material-icons-outlined" style={{color: 'yellow'}} onClick={()=>handleCity(0)}>star_border</span>
                         }
                         </div>}
-                    <p>{weather.location.name}</p>
-                    <p>{weather.location.country}</p>
+                    {isLoading && <div className={styles.loader}></div>}
+                    <p className={styles.city}>{weather.location.name}</p>
+                    <p className={styles.country}>{weather.location.country}</p>
                     <p>{weather.current.last_updated}</p>
                     <p className={user ? styles.loginTemp : styles.temp} onClick={onOpen}>{weather.current.temp_c} °C</p>
                     <p>Wind direction: {weather.current.wind_dir}</p>
-                    <p>Wind: {weather.current.wind_kph} Kph</p>
+                    <p>Wind speed: {weather.current.wind_kph} Kph</p>
                     <img src={weather.current.condition.icon} alt="icon.png" />
             </div>
             {user && <PrefSuggestion {...{isOpen, onClose}} temp={weather.current.temp_c}/>}
