@@ -27,7 +27,7 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
         setIsLoading(false)
         setFavCities(resp)
         toast({
-            title: (mode ? `${weather.location.name} removed from favorites`: `${weather.location.name} saved as favorite`),
+            title: weather.location.name + (mode ? ` removed from favorites` : ` saved as favorite`),
             status: (mode ? 'info' : 'success'),
             duration: 4000,
             isClosable: true,

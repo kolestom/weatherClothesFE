@@ -1,8 +1,13 @@
 import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/react";
 
-const InputNumber = ({value, setValue}) => {
+const InputThermoTop = ({pref, setPref}) => {
     return ( 
-        <NumberInput size='xs' maxW={16} defaultValue={value ? value : 0} min={0} max={9} onChange={(e) => setValue(parseInt(e))}>
+        <NumberInput
+            size='xs'
+            maxW={16}
+            defaultValue={pref.thermoTop ? pref.thermoTop : 0}
+            min={0} max={9}
+            onChange={e => setPref({...pref, thermoTop: parseInt(e)})}>
             <NumberInputField />
             <NumberInputStepper>
                 <NumberIncrementStepper />
@@ -12,4 +17,4 @@ const InputNumber = ({value, setValue}) => {
      );
 }
  
-export default InputNumber;
+export default InputThermoTop;

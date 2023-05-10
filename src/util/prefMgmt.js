@@ -1,22 +1,8 @@
 import axios from "axios";
 
 export const prefMgmt = async (
-  prefName,
+  pref,
   userSub,
-  minTemp,
-  maxTemp,
-  cap,
-  scarf,
-  jacket,
-  thermoTop,
-  shortGloves,
-  longGloves,
-  thermoGloves,
-  shortPants,
-  longPants,
-  thermoLeggins,
-  warmSocks,
-  notes,
   id
 ) => {
     let path
@@ -36,28 +22,28 @@ const response = axios.request({
         Authorization: `Bearer: ${localStorage.getItem('token')}`
     },
     data: {
-        prefName,
+      prefName: pref.prefName,
       userSub,
-      minTemp,
-      maxTemp,
+      minTemp: pref.minTemp,
+      maxTemp: pref.maxTemp,
       clothes: {
-          cap,
-          scarf,
-          jacket,
-          thermoTop,
+          cap: pref.cap,
+          scarf: pref.scarf,
+          jacket: pref.jacket,
+          thermoTop: pref.thermoTop,
           gloves: {
-              short: shortGloves,
-              long: longGloves,
-              thermo: thermoGloves
+              short: pref.shortGloves,
+              long: pref.longGloves,
+              thermo: pref.thermoGloves
           },
           pants: {
-              shorts: shortPants,
-              longs: longPants
+              shorts: pref.shortPants,
+              longs: pref.longPants
           },
-          thermoLeggins,
-          warmSocks
+          thermoLeggins: pref.thermoLeggins,
+          warmSocks: pref.warmSocks
       },
-      notes
+      notes: pref.notes
     }
 })
   return response;

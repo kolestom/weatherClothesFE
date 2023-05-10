@@ -1,9 +1,9 @@
 import { handleGloves } from "../../util/handleClothes";
 import styles from '../PrefCreate.module.css'
 import {RadioGroup, Radio, Stack} from '@chakra-ui/react';
-import InputNumber from "./InputNumber";
+import InputThermoTop from "./InputThermoTop";
 
-const UpperBody = ({jacket, setJacket, thermoTop, setThermoTop, shortGloves, setShortGloves, longGloves, setLongGloves, setThermoGloves}) => {
+const UpperBody = ({pref, setPref}) => {
 
     return ( 
         <div className={styles.upperBody}>
@@ -12,16 +12,18 @@ const UpperBody = ({jacket, setJacket, thermoTop, setThermoTop, shortGloves, set
                 <div className={styles.torsoCont}>
                     <div className={styles.jacket}>
                         <label htmlFor="jacket">Jacket</label>
-                        <input type="checkbox" id="jacket" checked={jacket} name="jacket" value={jacket} onChange={()=>setJacket(prev => !prev)}/>
+                        <input type="checkbox" id="jacket" checked={pref.jacket} name="jacket" value={pref.jacket}
+                            onChange={()=>setPref({...pref, jacket: !pref.jacket})}/>
                     </div>
                     <div className={styles.thermoTop}>
                         <label htmlFor="thermoTop">Thermo top(s)</label>
-                        <InputNumber value={thermoTop} setValue={setThermoTop}/>
+                        <InputThermoTop {...{pref, setPref}}/>
                     </div>
                 </div>
             </div>
             <div className={styles.gloves}>Gloves:
-                <RadioGroup defaultValue={shortGloves ? 's' : longGloves ? 'l': 't'} onChange={e=>handleGloves(e, setShortGloves, setLongGloves, setThermoGloves)}>
+                <RadioGroup defaultValue={pref.shortGloves ? 's' : pref.longGloves ? 'l': 't'}
+                    onChange={e=>handleGloves(e, pref, setPref)}>
                     <Stack direction='row'>
                         <Radio size='sm' value='s'>Short</Radio>
                         <Radio size='sm' value='l'>Long</Radio>

@@ -14,48 +14,36 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
     const toast = useToast()
     const navigate = useNavigate()
     const user = useRXjs($user)
-    const [prefName, setPrefName] = useState(selectedPref.prefName);
-    const [minTemp, setMinTemp] = useState(selectedPref.minTemp);
-    const [maxTemp, setMaxTemp] = useState(selectedPref.maxTemp);
-    const [cap, setCap] = useState(selectedPref.clothes.cap);
-    const [scarf, setScarf] = useState(selectedPref.clothes.scarf);
-    const [jacket, setJacket] = useState(selectedPref.clothes.jacket);
-    const [thermoTop, setThermoTop] = useState(selectedPref.clothes.thermoTop);
-    const [shortGloves, setShortGloves] = useState(selectedPref.clothes.gloves.short);
-    const [longGloves, setLongGloves] = useState(selectedPref.clothes.gloves.long);
-    const [thermoGloves, setThermoGloves] = useState(selectedPref.clothes.gloves.thermo);
-    const [shortPants, setShortPants] = useState(selectedPref.clothes.pants.shorts);
-    const [longPants, setLongPants] = useState(selectedPref.clothes.pants.longs);
-    const [thermoLeggins, setThermoLeggins] = useState(selectedPref.clothes.thermoLeggins);
-    const [warmSocks, setWarmSocks] = useState(selectedPref.clothes.warmSocks);
-    const [notes, setNotes] = useState(selectedPref.notes);
+    const [pref, setPref] = useState({
+        prefName: selectedPref.prefName,
+        minTemp: selectedPref.minTemp,
+        maxTemp: selectedPref.maxTemp,
+        cap: selectedPref.clothes.cap,
+        scarf: selectedPref.clothes.scarf,
+        jacket: selectedPref.clothes.jacket,
+        thermoTop: selectedPref.clothes.thermoTop,
+        shortGloves: selectedPref.clothes.gloves.short,
+        longGloves: selectedPref.clothes.gloves.long,
+        thermoGloves: selectedPref.clothes.gloves.thermo,
+        shortPants: selectedPref.clothes.pants.shorts,
+        longPants: selectedPref.clothes.pants.longs,
+        thermoLeggins: selectedPref.clothes.thermoLeggins,
+        warmSocks: selectedPref.clothes.warmSocks,
+        notes: selectedPref.notes
+    });
     const [isDisabled, setIsDisabled] = useState(true);
 
     useEffect(()=>{
-        if(prefName && minTemp<maxTemp && thermoTop >= 0 && warmSocks >= 0) setIsDisabled(false)
+        if(pref.prefName && pref.minTemp<pref.maxTemp && pref.thermoTop >= 0 && pref.warmSocks >= 0) setIsDisabled(false)
         else setIsDisabled(true)
-    },[prefName, minTemp, maxTemp, thermoTop, warmSocks])
+    },[pref.prefName, pref.minTemp, pref.maxTemp, pref.thermoTop, pref.warmSocks])
 
 
     const updatePref = async() => {
         try {
             const response = await prefMgmt(
-                prefName,
+                pref,
                 user.sub,
-                minTemp,
-                maxTemp,
-                cap,
-                scarf,
-                jacket,
-                thermoTop,
-                shortGloves,
-                longGloves,
-                thermoGloves,
-                shortPants,
-                longPants,
-                thermoLeggins,
-                warmSocks,
-                notes,
                 selectedPref._id
               )
             setPrefs(response.data)
@@ -68,9 +56,11 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
             onClose()  
         } catch (error) {
             alert(error.response.data)
-            onClose()
-            logout()
-            navigate('/')
+            if(error.response.status===401) {
+                onClose()
+                logout()
+                navigate('/')
+            }
         }
     }
 
@@ -91,9 +81,11 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
                 onClose()
             } catch (error) {
                 alert(error.response.data)
-                onClose()
-                logout()
-                navigate('/')
+                if(error.response.status===401) {
+                    onClose()
+                    logout()
+                    navigate('/')
+                }
             }
         }
     }
@@ -101,10 +93,7 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
     return ( 
         <div className={styles.createInputs}>
             <h1>Update preference details</h1>
-            <MainPrefComp {...{prefName, setPrefName, minTemp, setMinTemp, maxTemp, setMaxTemp,cap, setCap, scarf, setScarf,
-                jacket, setJacket, thermoTop, setThermoTop, shortGloves, setShortGloves, longGloves, setLongGloves, setThermoGloves,
-                shortPants, setShortPants, setLongPants, thermoLeggins, setThermoLeggins, warmSocks, setWarmSocks, notes, setNotes
-                }}/>
+            <MainPrefComp {...{pref, setPref}}/>
             <div className={styles.buttons}>
                 <Button width={"50%"} colorScheme='blue' isDisabled={isDisabled} variant="solid" onClick={updatePref}>Update preference</Button>
                 <Button width={"50%"} colorScheme='red' variant="solid" onClick={handleDelete}>Delete preference</Button>

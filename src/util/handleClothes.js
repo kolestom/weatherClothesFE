@@ -1,28 +1,20 @@
 
-export const handleGloves = (e, setShortGloves, setLongGloves, setThermoGloves) =>{
-    if (e==='l') {
-        setShortGloves(false)
-        setLongGloves(true)
-        setThermoGloves(false)
-    }
-    if (e==='t') {
-        setShortGloves(false)
-        setLongGloves(false)
-        setThermoGloves(true)
-    }
-    if (e==='s') {
-        setShortGloves(true)
-        setLongGloves(false)
-        setThermoGloves(false)
-    }
+export const handleGloves = (e, pref, setPref) =>{
+    if (e === 'l') {
+        setPref({ ...pref, shortGloves: false, longGloves: true, thermoGloves: false });
+      }
+      if (e === 't') {
+        setPref({ ...pref, shortGloves: false, longGloves: false, thermoGloves: true });
+      }
+      if (e === 's') {
+        setPref({ ...pref, shortGloves: true, longGloves: false, thermoGloves: false });
+      }
 }
-export const handlePants = (e, setShortPants, setLongPants) =>{
+export const handlePants = (e, pref, setPref) =>{
     if (e==='l') {
-        setShortPants(false)
-        setLongPants(true)
+        setPref({...pref, shortPants: false, longPants: true})
     }
     if (e==='s') {
-        setShortPants(true)
-        setLongPants(false)
+        setPref({...pref, shortPants: true, longPants: false})
     }
 }
