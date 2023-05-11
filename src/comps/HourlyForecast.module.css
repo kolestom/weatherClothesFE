@@ -1,0 +1,48 @@
+.hourContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0.2rem;
+    width: 3rem;
+    border: 1px solid gray;
+    border-radius: 5px;
+    
+}
+.hourContainer div{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    width: 3rem
+}
+.hourContainer div :nth-child(2){
+    font-size: 0.7rem;
+}
+.hourContainer p{
+    font-size: 0.7rem;
+}
+
+.hourContainerLogin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0.2rem;
+    width: 3rem;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.hourContainerLogin:hover {
+    background-color: #f3f3f3b7;
+    cursor: pointer;
+}
+.hourContainerLogin div{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    width: 3rem
+}
+.hourContainerLogin div :nth-child(2){
+    font-size: 0.7rem;
+}
+.hourContainerLogin p{
+    font-size: 0.7rem;
+}

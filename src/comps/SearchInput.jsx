@@ -3,7 +3,7 @@ import { InputGroup, Input, InputRightElement } from '@chakra-ui/react';
 import { getWeather } from '../util/getWeather';
 import { useState } from 'react';
 
-const SearchInput = ({setWeather, cityList}) => {
+const SearchInput = ({setWeather, cityList, setCardIsLoading}) => {
   const [input, setInput] = useState('');
   const [filteredCities, setFilteredCities] = useState([]);
   const handleInput =(e) => {
@@ -12,15 +12,24 @@ const SearchInput = ({setWeather, cityList}) => {
       setFilteredCities(cityList.filter(city => city.toLowerCase().startsWith(e)))
     }
   }
-  const handleSrcWeather =(e)=>{
-    getWeather(e.target.innerText, setWeather)
+  const handleSrcWeather = async (e)=>{
+    setCardIsLoading(true)
+    const resp = await getWeather(e.target.innerText)
+    setWeather(resp)
+    setCardIsLoading(false)
     setInput('')
   }
     return ( 
         <div className={styles.inputContainer}>
             <div className={styles.input}>
               <InputGroup>
-                <Input type="text" htmlSize={24} width='auto' placeholder='Search city' _placeholder={{ color: 'inherit' }} value={input} onChange={(e) => handleInput(e.target.value)}/>
+                <Input 
+                  type="text"
+                  htmlSize={24}
+                  width='auto'
+                  placeholder='Search city'
+                  _placeholder={{ color: 'inherit' }}
+                  value={input} onChange={(e) => handleInput(e.target.value)}/>
                 <InputRightElement
                   children={<span className="material-icons-outlined" onClick={()=>setInput('')}>delete</span>}
                   >

@@ -1,0 +1,52 @@
+.wind, .wind div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nne{
+    rotate: 22.5deg;
+}
+.ne{
+    rotate: 45deg;
+}
+.ene{
+    rotate: 67.5deg;
+}
+.e{
+    rotate: 90deg;
+}
+.ese{
+    rotate: 112.5deg;
+}
+.se{
+    rotate: 135deg;
+}
+.sse{
+    rotate: 157.5deg;
+}
+.s{
+    rotate: 180deg;
+}
+.ssw{
+    rotate: 202.5deg;
+}
+.sw{
+    rotate: 225deg;
+}
+.wsw{
+    rotate: 247.5deg;
+}
+.w{
+    rotate: 270deg;
+}
+.wnw{
+    rotate: 292.5deg;
+}
+.nw{
+    rotate: 315deg;
+}
+.nnw{
+    rotate: 337.5deg;
+}

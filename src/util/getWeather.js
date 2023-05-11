@@ -1,12 +1,12 @@
 import { client } from "../api/own"
 
-export const getWeather = async(e, setWeather) =>{
+export const getWeather = async(e) =>{
     if (e) {
       const [city, country] = e.split(', ')
       const apiResponse = await client.post(`/api/weather`, {
         city,
         country,
       })
-      setWeather(apiResponse.data)
+      return apiResponse.data
     }
   }

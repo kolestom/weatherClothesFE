@@ -20,14 +20,22 @@
 .country{
     font-size: 0.8rem;
 }
-.card div{
+.star{
     position: absolute;
     top: 5px;
     right: 5px;
     cursor: pointer;
 }
-.card span:hover{
+.star:hover{
     text-shadow: 2px 2px 5px black;
+}
+.tempContainer {
+    display: flex;
+    align-items:center;
+}
+
+.tempContainer div :nth-child(2){
+    font-size: 1.5rem;
 }
 .temp {
     font-size: 2.5rem;
@@ -40,6 +48,16 @@
 .loginTemp:hover{
     cursor: pointer;
     text-shadow: 2px 2px 5px black;
+}
+
+.hourlyForecast {
+    overflow-x: scroll;
+    max-width: 230px;
+}
+
+.scrollable{
+    display: flex;
+    white-space: nowrap;
 }
 
 .loader {

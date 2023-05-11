@@ -23,6 +23,7 @@
     overflow: scroll;
     overflow-x: hidden;
     max-height: 15rem;
+    width: 17rem;
     position: absolute;
     z-index: 1;
     top: 2.5rem;

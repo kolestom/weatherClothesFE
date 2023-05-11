@@ -17,6 +17,7 @@ const Home = () => {
   const [weather, setWeather] = useState(null)
   const [favCities, setFavCities] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
+  const [cardIsLoading, setCardIsLoading] = useState(false);
 
   useEffect(()=>{
     const init = async () =>{
@@ -50,9 +51,13 @@ const Home = () => {
     getFavs()
   },[user])
 
-  const handleFavWeather = (e)=>{
-    getWeather(e.target.value, setWeather)
+  const handleFavWeather = async (e)=>{
+    setWeather(null)
+    setCardIsLoading(true)
+    const resp = await getWeather(e.target.value)
+    setWeather(resp)
     setSelectedOption('')
+    setCardIsLoading(false)
   }
   
   return (
@@ -70,9 +75,9 @@ const Home = () => {
                 )}
             </div>
           }
-          <SearchInput {...{ setWeather, cityList}}/>
+          <SearchInput {...{ setWeather, cityList, setCardIsLoading}}/>
         </div>
-        {weather ? (
+        {cardIsLoading ? <div className={styles.loaderWeather}></div> : weather ? (
           <WeatherCard {...{weather, favCities, setFavCities}}/>
         ) : (
           <lottie-player 

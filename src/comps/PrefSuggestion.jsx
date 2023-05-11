@@ -12,15 +12,15 @@ const PrefSuggestion = ({isOpen ,onClose, temp}) => {
     
     return ( 
         <Modal isOpen={isOpen} size={'md'} onClose={onClose}>
-            <ModalOverlay />
+            {/* <ModalOverlay /> */}
             <ModalContent>
                 <ModalBody>
                     <PrefCard temp={temp}/>
                 </ModalBody>
                 <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
-                </Button>
+                    <Button colorScheme='blue' mr={3} onClick={onClose}>
+                        Close
+                    </Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>

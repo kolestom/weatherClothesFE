@@ -21,8 +21,8 @@
     border: 6px solid #f3f3f3;
     border-top: 6px solid #4e4e4e;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 200px;
+    height: 200px;
     animation: spin 0.5s linear infinite;
 }
 
@@ -35,5 +35,9 @@
     .adminMain{
         gap: 1rem;
         font-size: small;
+    }
+    .loader {
+        width: 40px;
+        height: 40px;
     }
 }

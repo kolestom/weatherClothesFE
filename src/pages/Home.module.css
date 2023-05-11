@@ -30,6 +30,15 @@
     border-radius: 5px;
 }
 
+.loaderWeather {
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #4e4e4e;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    animation: spin 2s linear infinite;
+}
+
 .loader {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #4e4e4e;
