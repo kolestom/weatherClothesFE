@@ -6,47 +6,47 @@
 }
 
 .nne{
-    rotate: 22.5deg;
-}
-.ne{
-    rotate: 45deg;
-}
-.ene{
-    rotate: 67.5deg;
-}
-.e{
-    rotate: 90deg;
-}
-.ese{
-    rotate: 112.5deg;
-}
-.se{
-    rotate: 135deg;
-}
-.sse{
-    rotate: 157.5deg;
-}
-.s{
-    rotate: 180deg;
-}
-.ssw{
     rotate: 202.5deg;
-}
-.sw{
+} 
+.ne{
     rotate: 225deg;
-}
-.wsw{
+} 
+.ene{
     rotate: 247.5deg;
-}
-.w{
+} 
+.e{
     rotate: 270deg;
-}
-.wnw{
+} 
+.ese{
     rotate: 292.5deg;
-}
-.nw{
+} 
+.se{
     rotate: 315deg;
-}
-.nnw{
+} 
+.sse{
     rotate: 337.5deg;
-}
+} 
+.n{
+    rotate: 180deg;
+} 
+.ssw{
+    rotate: 22.5deg;
+} 
+.sw{
+    rotate: 45deg;
+} 
+.wsw{
+    rotate: 67.5deg;
+} 
+.w{
+    rotate: 90deg;
+} 
+.wnw{
+    rotate: 112.5deg;
+} 
+.nw{
+    rotate: 135deg;
+} 
+.nnw{
+    rotate: 157.5deg;
+} 

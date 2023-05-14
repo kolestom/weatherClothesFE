@@ -1,10 +1,11 @@
 import styles from './Wind.module.css'
 const Wind = ({wind, windSpeed}) => {
     return ( 
-        <div className={styles.wind}>Wind: 
+        <div className={styles.wind}>
+          Wind: {wind}
           <div
             className={
-              wind == "N"
+              wind == "S"
                 ? null
                 : wind == "NNE"
                 ? styles.nne
@@ -20,7 +21,7 @@ const Wind = ({wind, windSpeed}) => {
                 ? styles.se
                 : wind=='SSE'
                 ? styles.sse
-                : wind=='S'
+                : wind=='N'
                 ? styles.s
                 : wind=='SSW'
                 ? styles.ssw

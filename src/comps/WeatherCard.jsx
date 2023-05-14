@@ -7,6 +7,7 @@ import PrefSuggestion from "./PrefSuggestion";
 import {useDisclosure, useToast} from '@chakra-ui/react'
 import HourlyForecast from "./HourlyForecast";
 import Wind from "./Wind";
+import ForecastDay from "./ForecastDay";
 
 export const WeatherCard = ({weather, favCities, setFavCities}) => {
     const toast = useToast()
@@ -14,8 +15,7 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
     const user = useRXjs($user)
     const [favoriteID, setFavoriteID] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const wind = weather.current.wind_dir
-    const windSpeed = weather.current.wind_kph
+    
     console.log(weather);
     useEffect(() => {
         setFavoriteID('')
@@ -61,13 +61,20 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
             </div>
             <img src={weather.current.condition.icon} alt="icon.png" />
           </div>
-          <Wind {...{wind, windSpeed}}/>
+          <div className={styles.windContainer}>
+            
+            <Wind wind={weather.current.wind_dir} windSpeed={weather.current.wind_kph}/>
+          </div>
           <div className={styles.hourlyForecast}>
             <div className={styles.scrollable}>
               {weather.forecast.forecastday[0].hour.map((hour) => (
                 <HourlyForecast key={hour.time} {...{ hour }} />
               ))}
             </div>
+          </div>
+          <div className={styles.dailyForecast}>
+            {weather.forecast.forecastday.map((day, i) => {
+              if (i!==0) return <ForecastDay key={day.date} {...{day}}/>})}
           </div>
         </div>
         {user && (

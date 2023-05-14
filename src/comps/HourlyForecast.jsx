@@ -16,6 +16,7 @@ const HourlyForecast = ({hour}) => {
                     <span>°C</span>
                 </div>
                 <img src={hour.condition.icon} alt="" />
+                {/* {hour.wind_dir} {hour.wind_kph} */}
             </div>
             {user && <PrefSuggestion {...{isOpen, onClose}} temp={hour.temp_c}/>}
         </> 
