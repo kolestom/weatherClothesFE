@@ -14,8 +14,6 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
     const user = useRXjs($user)
     const [favoriteID, setFavoriteID] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const wind = weather.current.wind_dir
-    const windSpeed = weather.current.wind_kph
     
     console.log(weather);
     useEffect(() => {
@@ -62,7 +60,10 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
             </div>
             <img src={weather.current.condition.icon} alt="icon.png" />
           </div>
-          <Wind {...{wind, windSpeed}}/>
+          <div className={styles.windContainer}>
+            
+            <Wind wind={weather.current.wind_dir} windSpeed={weather.current.wind_kph}/>
+          </div>
           <div className={styles.hourlyForecast}>
             <div className={styles.scrollable}>
               {weather.forecast.forecastday[0].hour.map((hour) => (

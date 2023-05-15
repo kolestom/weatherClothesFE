@@ -7,7 +7,7 @@
     border-radius: 0.5rem;
     padding: 1rem;
     width: 250px;
-    height: 350px;
+    height: 420px;
     position: relative;
     background-color: #f3f3f383;
 }
@@ -58,6 +58,9 @@
     display: flex;
     white-space: nowrap;
 }
+.dailyForecast{
+    display: flex;
+}
 
 .loader {
     position: absolute;
@@ -76,7 +79,7 @@
     100% { transform: rotate(360deg); }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     h1{
         font-size: 1.5rem;
     }
