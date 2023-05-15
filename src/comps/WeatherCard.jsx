@@ -16,6 +16,7 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
     const [isLoading, setIsLoading] = useState(false);
     const wind = weather.current.wind_dir
     const windSpeed = weather.current.wind_kph
+    
     console.log(weather);
     useEffect(() => {
         setFavoriteID('')
@@ -70,12 +71,7 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
             </div>
           </div>
         </div>
-        {user && (
-          <PrefSuggestion
-            {...{ isOpen, onClose }}
-            temp={weather.current.temp_c}
-          />
-        )}
+        {user && <PrefSuggestion {...{ isOpen, onClose }} temp={weather.current.temp_c}/>}
       </>
     );
 }

@@ -1,24 +1,26 @@
 import {FcGoogle} from 'react-icons/fc'
-import { Button } from '@chakra-ui/react';
 import { fullUrl } from '../config';
 import { $user, logout } from '../states/user';
 import useRXjs from '../hooks/useRXjs';
 import { useNavigate } from 'react-router-dom';
-import { client } from '../api/own';
 import styles from './NavBar.module.css'
 import {
+    Button,
     Menu,
     MenuButton,
     MenuList,
     MenuItem,
     MenuDivider,
-    useToast
+    useToast,
+    useDisclosure
   } from '@chakra-ui/react'
+import ProfileDelete from './ProfileDelete';
 
 export const NavBar = () => {
     const toast = useToast()
     const navigate = useNavigate()
     const user = useRXjs($user)
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleLogin = () => {
         window.location.href = fullUrl;
@@ -35,20 +37,7 @@ export const NavBar = () => {
           })
     }
 
-    const profileDelete = async() =>{
-        const conf = confirm('Are you sure you want delete your profile?')
-        if (conf) {
-            try {
-                const resp = await client.delete('/api/delUser',{
-                    headers: { Authorization: `Bearer: ${localStorage.getItem('token')}`}
-                })
-                logout()
-                navigate('/')
-            } catch (error) {
-                alert(error.response.message)
-            }
-        }
-    }
+    
     return ( 
         <nav>
             <div className={styles.logoContainer}>
@@ -73,10 +62,11 @@ export const NavBar = () => {
                     <MenuItem onClick={()=>navigate('/')}>Home page</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     <MenuDivider />
-                    <MenuItem onClick={profileDelete} >Delete profile</MenuItem>
+                    <MenuItem onClick={onOpen} >Delete profile</MenuItem>
                 </MenuList>
             </Menu>:
             <Button leftIcon={<FcGoogle/>} onClick={handleLogin} colorScheme="gray" variant="solid" >Login</Button>}
+            <ProfileDelete {...{ isOpen, onClose }}/>
         </nav>
      );
 }
