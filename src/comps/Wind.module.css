@@ -5,6 +5,10 @@
     gap: 1rem;
 }
 
+.wind :nth-child(1){
+    color: blue;
+}
+
 .nne{
     rotate: 202.5deg;
 } 
