@@ -36,12 +36,12 @@ const Home = () => {
     const getFavs = async () =>{
       if (user) {
         try {
-          const response = await client.get('/api/favCity', {
+          const response = (await client.get('/api/favCity', {
             headers: {
               Authorization: `Bearer: ${localStorage.getItem('token')}`
             }
-          })
-          setFavCities(response.data)
+          })).data
+          setFavCities(response.sort((a, b) => a.city.localeCompare(b.city)))
           } catch (error) {
             alert("Your session expired. Please, log in again")
             logout()

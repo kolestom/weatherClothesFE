@@ -15,7 +15,6 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
     const [favoriteID, setFavoriteID] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     
-    console.log(weather);
     useEffect(() => {
         setFavoriteID('')
         favCities.map(city => {
@@ -28,7 +27,7 @@ export const WeatherCard = ({weather, favCities, setFavCities}) => {
         let resp
         mode ? resp = await saveCity(weather.location) : resp = await delCity(favoriteID)
         setIsLoading(false)
-        setFavCities(resp)
+        setFavCities(resp.sort((a, b) => a.city.localeCompare(b.city)))
         toast({
             title: weather.location.name + (mode ? ` saved as favorite` : ` removed from favorites`),
             status: (mode ? 'success' : 'info'),

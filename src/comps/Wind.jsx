@@ -2,8 +2,8 @@ import styles from './Wind.module.css'
 const Wind = ({wind, windSpeed}) => {
     return ( 
         <div className={styles.wind}>
-          {/* <span className="material-icons-outlined">air</span> */}
-          Wind: {wind}
+          <span className="material-icons-outlined">air</span>
+          {wind}
           <div
             className={
               wind == "S"
