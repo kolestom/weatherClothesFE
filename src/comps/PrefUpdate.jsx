@@ -46,7 +46,7 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
                 user.sub,
                 selectedPref._id
               )
-            setPrefs(response.data)
+            setPrefs(response.data.sort((a, b) => a.minTemp - b.minTemp))
             toast({
                 title: 'Preference updated.',
                 status: 'success',
@@ -71,7 +71,7 @@ export const PrefUpdate = ({selectedPref, setPrefs, onClose}) => {
                 const resp = await client.delete(`/api/pref/${selectedPref._id}`, {
                     headers: { Authorization: `Bearer: ${localStorage.getItem('token')}`}
                 })
-                setPrefs(resp.data)
+                setPrefs(resp.data.sort((a, b) => a.minTemp - b.minTemp))
                 toast({
                     title: 'Preference deleted.',
                     status: 'success',

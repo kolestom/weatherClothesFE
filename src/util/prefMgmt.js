@@ -1,21 +1,16 @@
 import axios from "axios";
 
-export const prefMgmt = async (
-  pref,
-  userSub,
-  id
-) => {
+export const prefMgmt = async ( pref, userSub, id ) => {
     let path
     let method
   if (id) {
     path = `/api/pref/${id}`;
     method = 'put'
-} else {
+  } else {
     path = `/api/pref`;
     method = 'post'
   }
-
-const response = axios.request({
+  const response = axios.request({
     method,
     url: `http://localhost:3005${path}`,
     headers: {
@@ -45,7 +40,7 @@ const response = axios.request({
       },
       notes: pref.notes
     }
-})
+  })
   return response;
 };
 

@@ -39,7 +39,7 @@ export const PrefCreate = ({setPrefs}) => {
               pref,
               user.sub,
             )
-            setPrefs(response.data)
+            setPrefs(response.data.sort((a, b) => a.minTemp - b.minTemp))
             toast({
                 title: 'Preference creation successful.',
                 status: 'success',
