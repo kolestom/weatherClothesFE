@@ -1,5 +1,12 @@
 # WeatherClothes APP frontend
 
+## About the APP
+
+The basic idea behind this weather application is to be able to set clothes suggestions for temperature intervals. This feature is available after a Google OAuth login. Without login only the basic city search function is available.
+After login the user can set up custom temperature intervals and select clothes for that interval in the "Manage preferences" menu (the options are based on the clothes I use for cycling ;-))
+By clicking on the temerature value of a city the app will show the clothes suggestion for that temperature. (The 24h forecast cards can also be clicked)
+The user can also save a city as a favorite by clicking on the star on the city card.
+
 ## Description
 
 This repository contains the frontend for the WeatherClothes APP.
@@ -26,3 +33,5 @@ You will also need git installed on your machine. Check the [GitHub](https://git
     $ npm run dev
     ```
 4.  Access the frontend by navigating to http://localhost:5173/ in your browser
+
+5.  To download and launch the backend server, follow the README.md on [this](https://github.com/kolestom/weatherClothesBE) link
